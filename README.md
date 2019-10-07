@@ -55,7 +55,6 @@ This training is assuming that you are familar with **Javascript**, **Basic Node
     - Benefit of functional programming
     - The role of functional programming in Redux architecture
     - Using JS functional functions: `map`, `filter`, `reduce`, `some`, `every`
-
   - Introduction to Redux architecture
   - Understanding Redux architecture data flow (Uni-directional data flow)
     - What is a redux action?
@@ -77,12 +76,12 @@ This training is assuming that you are familar with **Javascript**, **Basic Node
   - Final project that tested if you are ready or not
 
 - **Training 8 - Addional React Topics (Optional)**
-  - React Hook API*
   - React Router*
   - Styled components*
   - Optimizing React Application*
   - Introduction to `Babel`*
   - Config `eslint`*
+  - React Hook API*
   - React Memo API
   - React Lazy
   - React Context
@@ -111,7 +110,6 @@ git remote add upstream https://github.com/longhpzigvy/zv-react-training
 ```bash
 git pull upstream master --rebase
 ```
-
 
 ## Recommendation Readings / Videos
 - [Redux Training on EggHead](https://egghead.io/courses/getting-started-with-redux)

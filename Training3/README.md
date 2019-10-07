@@ -16,7 +16,7 @@
 - One reading section
 - One practice section with the given task below
 
-## Reading (Optional)
+## Reading
 - [State and Life Cycle](https://reactjs.org/docs/state-and-lifecycle.html)
 
 ## Tasks and Requimenets
