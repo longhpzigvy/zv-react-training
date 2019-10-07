@@ -45,7 +45,7 @@
     ```
   - There is a button to close the modal from the children component
   - Using `state` and `props` to complete this task
-  - - Source code must be stored in `Training2/src/task2` folder
+  - Source code must be stored in `Training2/src/task2` folder
   - *You must implement this modal by your own. No library is allowed*
 
 - Task 3
@@ -55,8 +55,8 @@
     - If input is not a valid number, display an error tell a user that: 'Invalid input. Must be a number'
     - If input is a negative number, display an error tell a user that: 'Number must be greater than 0'
     - Otherwise, render a component that will countdown the given number from inputed number down to zero
-    - User is able to stop the countdown progress with `Stop` button.
-    - The `Stop` button should only be shown when the `Start` button is pressed
+  - User is able to stop the countdown progress with `Stop` button.
+  - The `Stop` button should only be shown when the `Start` button is pressed
   - Source code must be stored in `Training2/src/task3` folder
 
 ## Test
