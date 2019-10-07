@@ -12,21 +12,26 @@ This training is assuming that you are familar with **Javascript**, **Basic Node
 - **Training 1 - Introduction: React**
   - What is a React library?
   - Why do we use React?
-  - Create new a React project using `create-react-app`
+  - Create a new React project using `create-react-app`
   - ES6 Systax Overview: `import`, `export`, `arrow function`, `class declaration`
   - Basic concept of React
   - Component types and when to use them
-  - Re-using another React components
-  - Fragment in React
-  - React Ref
+    - Component
+    - PureComponent
+    - Stateless Component (or Functional Component)
+  - Re-using React components
   - Folder structure of a React project
 
-- **Training 2 - Basic React: React State and Props**
+- **Training 2 - Basic React: React State and Props and Ref**
   - What is a React state?
   - When to use state?
   - What is a properties (or props) in React?
   - When to use props?
+  - React Ref
+  - Rendering a list with React using `map`
+  - Fragment in React
   - Debugging React app using React Devtools
+  - Basic usage of `lodash`
 
 - **Training 3 - Basic React: React Life Cycle**
   - Overview of React Life Cycle
@@ -41,6 +46,7 @@ This training is assuming that you are familar with **Javascript**, **Basic Node
   - Using `fetch` API to get data from API
   - Using state, props to transfer data from API around components
   - Using `axios` as a replacement of `fetch` API
+  - Using `debounce` and `throttle` (from lodash) to improve the performance
 
 - **Training 5 - Advanced React: Redux and React Redux**
   - Introduction to fundemental of functional programming
@@ -48,6 +54,8 @@ This training is assuming that you are familar with **Javascript**, **Basic Node
     - What is a side effect?
     - Benefit of functional programming
     - The role of functional programming in Redux architecture
+    - Using JS functional functions: `map`, `filter`, `reduce`, `some`, `every`
+
   - Introduction to Redux architecture
   - Understanding Redux architecture data flow (Uni-directional data flow)
     - What is a redux action?
@@ -65,20 +73,25 @@ This training is assuming that you are familar with **Javascript**, **Basic Node
   - Debugging Redux with Redux Devtools Ext
 
 - **Training 7 - Final Project and Test**
-  - Final test with 20-30 questions about React. In order to pass, you may need to achieve at least 80% of total score
+  - Final test with 20-30 questions about React and Redux. In order to pass, you may need to achieve at least 80% of total score
   - Final project that tested if you are ready or not
 
-- **Training 8 - Bonus: More about React (Optional)**
-  - React Hook API
+- **Training 8 - Addional React Topics (Optional)**
+  - React Hook API*
+  - Styled components*
   - React Memo API
   - React Lazy
   - React Context
   - Higher Order Component (HOC)
+  - Optimizing React Application*
+  - Setup `scss`/`less`/`stylus` for React application
+  - Introduction to `Babel`*
+  - Config `eslint`*
 
 ## Guide
 - Fork this repository
 
-- Clone the foked repo
+- Clone the forked repo
 
 ```bash
 git clone https://github.com/[username]/zv-react-training
