@@ -26,7 +26,7 @@
 
 ## Reading (Optional)
 - Fullstack React - Part 1
-- From **Your first React Web Application** to **Prepare the app** (p.11)
+- From **Your first React Web Application** to **Building Product** (p.25)
 
 ## Task and Requimenets
 - Task

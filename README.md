@@ -105,6 +105,12 @@ git remote add upstream https://github.com/longhpzigvy/zv-react-training
 
 - Read the README in training section 1, 2, 3, etc and complete the task
 
+- To update with upstream
+
+```bash
+git pull upstream master --rebase
+```
+
 
 ## Recommendation Readings / Videos
 - [Redux Training on EggHead](https://egghead.io/courses/getting-started-with-redux)
