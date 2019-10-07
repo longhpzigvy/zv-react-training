@@ -22,7 +22,7 @@ This training is assuming that you are familar with **Javascript**, **Basic Node
   - Re-using React components
   - Folder structure of a React project
 
-- **Training 2 - Basic React: React State and Props and Ref**
+- **Training 2 - Basic React: React State, Props and Ref**
   - What is a React state?
   - When to use state?
   - What is a properties (or props) in React?
@@ -78,15 +78,16 @@ This training is assuming that you are familar with **Javascript**, **Basic Node
 
 - **Training 8 - Addional React Topics (Optional)**
   - React Hook API*
+  - React Router*
   - Styled components*
+  - Optimizing React Application*
+  - Introduction to `Babel`*
+  - Config `eslint`*
   - React Memo API
   - React Lazy
   - React Context
   - Higher Order Component (HOC)
-  - Optimizing React Application*
   - Setup `scss`/`less`/`stylus` for React application
-  - Introduction to `Babel`*
-  - Config `eslint`*
 
 ## Guide
 - Fork this repository
