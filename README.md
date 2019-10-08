@@ -86,7 +86,6 @@ This training is assuming that you are familar with **Javascript**, **Basic Node
   - React Lazy
   - React Context
   - Higher Order Component (HOC)
-  - Setup `scss`/`less`/`stylus` for React application
 
 ## Guide
 - Fork this repository
