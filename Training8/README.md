@@ -1,4 +1,4 @@
-# Training 3 - Basic React: React Life Cycle
+# Training 8 - Addional React Topics
 
 ## Overview
 - React Router*
