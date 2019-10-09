@@ -52,7 +52,6 @@ router.put('/todos/:todoId', function(req, res) {
   const todoId = req.params.todoId;
   
   const todo = currentTodos.find(({ id }) => id === todoId);
-  console.log({ todo, todoId, currentTodos });
   Object.keys(req.body).forEach(field => {
     todo[field] = req.body[field];
   });
@@ -62,7 +61,6 @@ router.put('/todos/:todoId', function(req, res) {
 
 router.delete('/todos/:todoId', function(req, res) {
   const todoId = req.params.todoId;
-  console.log({ todoId})
   const index = currentTodos.findIndex(({ id }) => todoId === id);
   currentTodos.splice(index, 1);
   res.json({});
