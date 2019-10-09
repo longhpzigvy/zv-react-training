@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const moment = require('moment');
 const morgan = require('morgan');
 const uuidv1 = require('uuid/v1');
 
