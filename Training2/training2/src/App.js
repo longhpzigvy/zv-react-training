@@ -1,19 +1,26 @@
-import React from 'react';
-import './App.css';
-import Task1 from './task1/task1';
-import Task2 from './task2/task2';
-import Task3 from './task3/task3';
+import React, { useState } from 'react';
+import './Style/Modal.css';
+import Modal from './Modal/Modal';
+import CloseButton from './Modal/CloseButton';
 
 const App = _ => {
-  return (
-    <div className='App'>
-      <Task1 />
-      <hr />
-      <Task2 />
-      <hr />
-      <Task3 />
-    </div>
-  );
+    const [display, setDisplay] = useState(false);
+    const toggleDisplay = () => {
+        setDisplay(display => !display);
+    }
+    return (
+        <div className={!display ? 'container' : ''}>
+            {!display && <button onClick={toggleDisplay}>Show Modal</button>}
+            {display && <Modal>
+                <div className='overlay' onClick={toggleDisplay}>
+                    <div className='modal' onClick={e => e.stopPropagation()}>
+                        <h1>Modal</h1>
+                        <CloseButton toggleDisplay={toggleDisplay}/>
+                    </div>
+                </div>
+            </Modal>}
+        </div>
+    );
 }
 
 export default App;
