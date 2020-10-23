@@ -44,14 +44,52 @@ const myReducer = (state = initialState, action) => {
                 loading: true
             }
         case Types.DELETE_ITEM_SUCCESS:
-            index = findIndex(state, action.payload);
-            const newItems = [...state.items];
+            index = findIndex(state.items, action.payload);
+            const term = [...state.items];
             return {
                 loading: false,
-                items: newItems.splice(index, 1),
+                items: term,
                 error: ''
             }
         case Types.DELETE_ITEM_FAILURE:
+            return {
+                loading: false,
+                items: [],
+                error: action.payload
+            }
+
+        //add item
+        case Types.ADD_ITEM_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case Types.ADD_ITEM_SUCCESS:
+            return {
+                ...state
+            }
+        case Types.ADD_ITEM_FAILURE:
+            return {
+                loading: false,
+                items: [],
+                error: action.payload
+            }
+        
+        //Update item
+        case Types.UPDATE_ITEM_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case Types.UPDATE_ITEM_SUCCESS:
+            index = findIndex(state.items, action.id);
+            const newItems = [...state.items];
+            newItems[index] = action.item;
+            return {
+                ...state,
+                items: newItems
+            }
+        case Types.UPDATE_ITEM_FAILURE:
             return {
                 loading: false,
                 items: [],

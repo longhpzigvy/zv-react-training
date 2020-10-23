@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Table from './Components/Table';
 import TaskForm from './Components/TaskForm';
@@ -7,7 +7,15 @@ import * as Actions from './Actions/index';
 
 
 const App = props =>  {
-    
+    const findIndex = (items, id) => {
+        let result = -1;
+        items.forEach((item, index) => {
+            if(item.id === id) {
+                result = index;
+            }
+        });
+        return result;
+    }
     return (
         <div className="container">
             {/*Title*/}
@@ -30,7 +38,7 @@ const App = props =>  {
                     </button>
 
                     {/* table display list to do*/}
-                    <Table/>
+                    <Table />
                 </div>
             </div>
         </div>
@@ -39,7 +47,8 @@ const App = props =>  {
 
 const mapStateToProps = state => {
     return {
-        display: state.display
+        display: state.display,
+        data: state.items
     };
 };
 

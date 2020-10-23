@@ -14,7 +14,7 @@ const Table = props => {
         <tr><td><h2>{props.data.error}</h2></td></tr>
     ) : (
         props.data.items.map((item, index) => {
-            return <TableItem key={index} item={item} index={index} deleteItem={deleteItem}/>
+            return <TableItem key={index} item={item} index={index} deleteItem={deleteItem} /> 
         })
     );
     useEffect(() => {

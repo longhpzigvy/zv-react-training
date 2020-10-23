@@ -1,12 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import * as Actions from '../../Actions/index';
 
 const TableItem = props => {
 
     const deleteItem = () => {
         props.deleteItem(props.item.id);
     }
-
+    const updateItem = () => {
+        props.getItemEditing(props.item);
+        props.openForm();
+    }
+    
     return (
         <tr>
             <td>{props.index + 1}</td>
@@ -23,6 +28,7 @@ const TableItem = props => {
                 <button
                     type="button"
                     className="btn btn-warning"
+                    onClick={updateItem}
                 >
                     <span className='fa fa-pencil'></span> &nbsp;
                         Sửa
@@ -32,6 +38,7 @@ const TableItem = props => {
                     type="button"
                     className='btn btn btn-danger'
                     onClick={deleteItem}
+
                 >
                     <span className='fa fa-trash'></span> &nbsp;
                         Xóa
@@ -49,6 +56,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
+        openForm: function(){
+            dispatch(Actions.openForm());
+        },
+        getItemEditing: function(item){
+            dispatch(Actions.getItemEditing(item));
+        }
     }
 }
 

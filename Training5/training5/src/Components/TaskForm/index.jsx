@@ -1,41 +1,63 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {connect} from 'react-redux';
 import * as Actions from '../../Actions/index';
 
 const TaskForm = props => {
-
     const [toDo, setToDo] = useState('');
     const [status, setStatus] = useState(true);
+    
+
+    useEffect(() => {
+        if(props.itemEditing !== null) {
+            setToDo(props.itemEditing.name);
+            setStatus(props.itemEditing.completed)
+        }
+    }, [props.itemEditing]);
 
     const handleSubmit = e => {
         e.preventDefault();
-        if(toDo !== ''){
-            // const newItem = {
-            //     name: toDo,
-            //     completed: status
-            // }
-
-            // Reset state
-            setToDo('');
-            setStatus(true);
-            props.closeForm();
+        if(props.itemEditing === null) {
+            if(toDo !== ''){
+                const newItem = {
+                     name: toDo,
+                     completed: status
+                }
+    
+                props.addItem(newItem);
+    
+                // Reset state
+                setToDo('');
+                setStatus(true);
+                closeForm();
+            } else {
+                alert('Invalid value');
+            }
         } else {
-            alert('Invalid value');
+            if(toDo !== '') {
+                const newItem = {
+                    ...props.itemEditing,
+                    name: toDo,
+                    completed: status
+                }
+                props.updateItem(newItem, newItem.id);
+                closeForm();
+            } else {
+                alert('Invalid value');
+            }
         }
     }
-    
     const closeForm = () => {
         setToDo('');
         setStatus(true);
+        props.getItemEditing(null);
         props.closeForm();
     }
-
     if (props.display) {
         return (
             <div className="panel panel-warning">
                 <div className="panel-heading">
                     <h3 className="panel-title flex-container">
-                        Thêm công việc
+                        {props.itemEditing ? 'Sửa công việc' : 'Thêm công việc'}
                         <span
                             className='fa fa-times-circle'
                             style={{ cursor: 'pointer' }}
@@ -90,7 +112,7 @@ const TaskForm = props => {
 const mapStateToProps = state => {
     return{
         display: state.display,
-        items: state.items
+        itemEditing: state.itemEditing
     }
 }
 
@@ -98,6 +120,15 @@ const mapDispatchToProp = (dispatch, props) => {
     return {
         closeForm: function(){
             dispatch(Actions.closeForm());
+        },
+        addItem: function(item){
+            dispatch(Actions.addItem(item))
+        },
+        getItemEditing: function(item){
+            dispatch(Actions.getItemEditing(item))
+        },
+        updateItem: function(item, id){
+            dispatch(Actions.updateItem(item, id));
         }
     }
 }
