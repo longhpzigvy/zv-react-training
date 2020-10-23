@@ -1,0 +1,16 @@
+export const OPEN_FORM = 'OPEN_FORM';
+export const CLOSE_FORM = 'CLOSE_FORM';
+
+export const FETCH_ITEMS_REQUEST = 'FETCH_ITEMS_REQUEST';
+export const FETCH_ITEMS_SUCCESS = 'FETCH_ITEMS_SUCCESS';
+export const FETCH_ITEMS_FAILURE = 'FETCH_ITEMS_FAILURE';
+
+
+export const ADD_ITEM = 'ADD_ITEM';
+export const UPDATE_ITEM = 'UPDATE_ITEM';
+
+
+//Delete item
+export const DELETE_ITEM_REQUEST = 'DELELE_ITEM_REQUEST';
+export const DELETE_ITEM_SUCCESS = 'DELELE_ITEM_SUCCESS';
+export const DELETE_ITEM_FAILURE = 'DELELE_ITEM_FAILURE';

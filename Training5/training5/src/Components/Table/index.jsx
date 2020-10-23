@@ -1,0 +1,57 @@
+import React, { useEffect } from 'react';
+import TableItem from '../TableItem';
+import {connect} from 'react-redux';
+import * as Actions from '../../Actions/index';
+
+
+const Table = props => {
+    const deleteItem = id => {
+        props.deleteItem(id);
+    }
+    const tableItem = props.data.loading ? (
+        <tr><td><h2>Loading....</h2></td></tr>
+    ) : props.data.error ? (
+        <tr><td><h2>{props.data.error}</h2></td></tr>
+    ) : (
+        props.data.items.map((item, index) => {
+            return <TableItem key={index} item={item} index={index} deleteItem={deleteItem}/>
+        })
+    );
+    useEffect(() => {
+        props.fetchItems();
+    }, []);
+    return (
+        <table className="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th className='text-center'>STT</th>
+                    <th className='text-center'>Tên</th>
+                    <th className='text-center'>Trạng thái</th>
+                    <th className='text-center'>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {tableItem}
+            </tbody>
+        </table>
+    );
+}
+
+const mapStateToProps = state => {
+    return {
+        data: state.items
+    }
+}
+
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        fetchItems: function(){
+            dispatch(Actions.fetchItems())
+        },
+        deleteItem: function(id){
+            dispatch(Actions.deleteItem(id))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
