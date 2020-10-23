@@ -2,30 +2,37 @@ import React from 'react';
 import { Input } from 'antd';
 import 'antd/dist/antd.css';
 import TableComp from '../TableComp';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import {debounce} from 'lodash';
 
 const {Search} = Input;
   
 export default function Task2 (props) {
     const [items, setItems] = useState([]);
-    const onSearch = value => {
+    const [value, setValue] = useState('');
+    const onSearch = useCallback(debounce((value) => {
         fetch(`https://restcountries.eu/rest/v2/name/${value}`).then(res => res.json()).then(json => {
             setItems([...json]);
         }).catch(function() {
             setItems([]);
         });
-    }
-    const handleChange = debounce((value) => {
+    }, 2000), []);
+
+
+    const handleChange = (value) => {
+        setValue(value);
         onSearch(value);
-    }, 1000); 
+    };
+    
+    
     return (
         <>
-            <Search 
+            <Search
+                value={value}
                 placeholder="input search text" 
                 enterButton="Search" 
                 size="large" 
-                onSearch={onSearch}
+                onSearch={() => { onSearch(value)}}
                 onChange = {e => handleChange(e.target.value)}
             />
             <TableComp items={items} />

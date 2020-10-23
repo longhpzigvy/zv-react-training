@@ -6,18 +6,8 @@ const initialState = {
     error: ''
 };
 
-const findIndex = (items, id) => {
-    let result = -1;
-    items.forEach((item, index) => {
-        if(item.id === id) {
-            result = index;
-        }
-    });
-    return result;
-}
 
 const myReducer = (state = initialState, action) => {
-    let index = -1;
     switch(action.type){
         case Types.FETCH_ITEMS_REQUEST:
             return {
@@ -44,11 +34,9 @@ const myReducer = (state = initialState, action) => {
                 loading: true
             }
         case Types.DELETE_ITEM_SUCCESS:
-            index = findIndex(state.items, action.payload);
-            const term = [...state.items];
             return {
                 loading: false,
-                items: term,
+                items: state.items.filter(item => item.id !== action.payload),
                 error: ''
             }
         case Types.DELETE_ITEM_FAILURE:
@@ -66,7 +54,9 @@ const myReducer = (state = initialState, action) => {
             }
         case Types.ADD_ITEM_SUCCESS:
             return {
-                ...state
+                ...state,
+                loading: false,
+                items: [...state.items, action.payload]
             }
         case Types.ADD_ITEM_FAILURE:
             return {
@@ -81,14 +71,17 @@ const myReducer = (state = initialState, action) => {
                 ...state,
                 loading: true
             }
-        case Types.UPDATE_ITEM_SUCCESS:
-            index = findIndex(state.items, action.id);
-            const newItems = [...state.items];
-            newItems[index] = action.item;
+        case Types.UPDATE_ITEM_SUCCESS: {
             return {
                 ...state,
-                items: newItems
+                loading: false,
+                items: state.items.map(item => {
+                    if (item.id === action.id) return action.item;
+                    return item;
+                })
             }
+        }
+            
         case Types.UPDATE_ITEM_FAILURE:
             return {
                 loading: false,

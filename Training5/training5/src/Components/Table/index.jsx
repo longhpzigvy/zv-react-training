@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import TableItem from '../TableItem';
 import {connect} from 'react-redux';
 import * as Actions from '../../Actions/index';
+import { getTodolist } from '../../Selectors/todo.selector';
 
 
 const Table = props => {
@@ -18,7 +19,14 @@ const Table = props => {
         })
     );
     useEffect(() => {
-        props.fetchItems();
+
+        callApi('todos', 'GET', null).then(res => {
+            const items = res.data;
+            dispatch(fetchItemsSuccess(items));
+        }).catch(err => {
+            const errMessage = err.message;
+            dispatch(fetchItemsFailure(errMessage));
+        });
     }, []);
     return (
         <table className="table table-bordered table-hover">
@@ -39,19 +47,13 @@ const Table = props => {
 
 const mapStateToProps = state => {
     return {
-        data: state.items
+        data: getTodolist(state),
     }
 }
 
-const mapDispatchToProps = (dispatch, props) => {
-    return {
-        fetchItems: function(){
-            dispatch(Actions.fetchItems())
-        },
-        deleteItem: function(id){
-            dispatch(Actions.deleteItem(id))
-        }
-    }
-}
+const mapDispatchToProps = {
+    fetchItems: Actions.fetchItems,
+    deleteItem: Actions.deleteItem,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
