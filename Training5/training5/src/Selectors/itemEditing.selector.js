@@ -1,0 +1,1 @@
+export const getItemEditing = state => state.itemEditing

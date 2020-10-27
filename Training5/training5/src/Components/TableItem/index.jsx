@@ -11,7 +11,6 @@ const TableItem = props => {
         props.getItemEditing(props.item);
         props.openForm();
     }
-    
     return (
         <tr>
             <td>{props.index + 1}</td>
@@ -48,21 +47,8 @@ const TableItem = props => {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        items: state.items
-    }
+const mapDispatchToProps = {
+    openForm: Actions.openForm,
+    getItemEditing: Actions.getItemEditing
 }
-
-const mapDispatchToProps = (dispatch, props) => {
-    return {
-        openForm: function(){
-            dispatch(Actions.openForm());
-        },
-        getItemEditing: function(item){
-            dispatch(Actions.getItemEditing(item));
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TableItem);
+export default connect(null, mapDispatchToProps)(TableItem);

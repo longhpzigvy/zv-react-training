@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import {connect} from 'react-redux';
 import * as Actions from '../../Actions/index';
+import { getDisplayForm } from '../../Selectors/displayForm.selector';
+import {getItemEditing} from '../../Selectors/itemEditing.selector';
 
 const TaskForm = props => {
     const [toDo, setToDo] = useState('');
     const [status, setStatus] = useState(true);
-    
-
     useEffect(() => {
         if(props.itemEditing !== null) {
             setToDo(props.itemEditing.name);
             setStatus(props.itemEditing.completed)
         }
     }, [props.itemEditing]);
-
     const handleSubmit = e => {
         e.preventDefault();
         if(props.itemEditing === null) {
@@ -22,7 +21,6 @@ const TaskForm = props => {
                      name: toDo,
                      completed: status
                 }
-    
                 props.addItem(newItem);
     
                 // Reset state
@@ -111,26 +109,16 @@ const TaskForm = props => {
 }
 const mapStateToProps = state => {
     return{
-        display: state.display,
-        itemEditing: state.itemEditing
+        display: getDisplayForm(state),
+        itemEditing: getItemEditing(state)
     }
 }
 
-const mapDispatchToProp = (dispatch, props) => {
-    return {
-        closeForm: function(){
-            dispatch(Actions.closeForm());
-        },
-        addItem: function(item){
-            dispatch(Actions.addItem(item))
-        },
-        getItemEditing: function(item){
-            dispatch(Actions.getItemEditing(item))
-        },
-        updateItem: function(item, id){
-            dispatch(Actions.updateItem(item, id));
-        }
-    }
+const mapDispatchToProp = {
+    closeForm: Actions.closeForm,
+    addItem: Actions.addItem,
+    getItemEditing: Actions.getItemEditing,
+    updateItem: Actions.updateItem
 }
 
 export default connect(mapStateToProps, mapDispatchToProp)(TaskForm);

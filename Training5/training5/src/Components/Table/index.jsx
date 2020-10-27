@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import TableItem from '../TableItem';
 import {connect} from 'react-redux';
 import * as Actions from '../../Actions/index';
+import { getToDoList } from '../../Selectors/todo.selector';
 
 
 const Table = props => {
@@ -39,19 +40,13 @@ const Table = props => {
 
 const mapStateToProps = state => {
     return {
-        data: state.items
+        data: getToDoList(state)
     }
 }
 
-const mapDispatchToProps = (dispatch, props) => {
-    return {
-        fetchItems: function(){
-            dispatch(Actions.fetchItems())
-        },
-        deleteItem: function(id){
-            dispatch(Actions.deleteItem(id))
-        }
-    }
+const mapDispatchToProps = {
+    fetchItems: Actions.fetchItems,
+    deleteItem: Actions.deleteItem
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

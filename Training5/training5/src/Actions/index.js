@@ -50,7 +50,7 @@ export const deleteItem = (id) => {
         dispatch(deleteItemRequest());
         callApi(`todos/${id}`, 'DELETE', null).then(res => {
             dispatch(deleteItemSuccess(id));
-            dispatch(fetchItems());
+            //dispatch(fetchItems());
         }).catch(err => {
             const errMessage = err.message;
             dispatch(deleteItemFailure(errMessage));
@@ -81,7 +81,7 @@ export const addItem = (item) => {
         dispatch(addItemRequest());
         callApi('todos', 'POST', item).then(res => {
             dispatch(addItemSuccess(item));
-            dispatch(fetchItems());
+            //dispatch(fetchItems());
         }).catch(err => {
             const errMessage = err.message;
             dispatch(addItemFailure(errMessage));
@@ -112,7 +112,7 @@ export const updateItem = (item, id) => {
         dispatch(updateItemRequest());
         callApi(`todos/${id}`, 'PUT', item).then(res => {
             dispatch(updateItemSuccess(item, id));
-            dispatch(fetchItems());
+            //dispatch(fetchItems());
         }).catch(err => {
             const errMessage = err.message;
             dispatch(updateItemFailure(errMessage));

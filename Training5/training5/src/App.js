@@ -1,21 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import Table from './Components/Table';
 import TaskForm from './Components/TaskForm';
 import {connect} from 'react-redux';
 import * as Actions from './Actions/index';
 
-
 const App = props =>  {
-    const findIndex = (items, id) => {
-        let result = -1;
-        items.forEach((item, index) => {
-            if(item.id === id) {
-                result = index;
-            }
-        });
-        return result;
-    }
     return (
         <div className="container">
             {/*Title*/}
@@ -47,17 +37,11 @@ const App = props =>  {
 
 const mapStateToProps = state => {
     return {
-        display: state.display,
-        data: state.items
+        display: state.display
     };
 };
-
-const mapDispatchToProps = (dispatch, props) => {
-    return {
-        openForm: function(){
-            dispatch(Actions.openForm());
-        }
-    }
+const mapDispatchToProps = {
+    openForm: Actions.openForm
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
