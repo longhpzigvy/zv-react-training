@@ -25,7 +25,6 @@ const myReducer = (state = initialState, action) => {
                 items: [],
                 error: action.payload
             }
-
         //delete item
         case Types.DELETE_ITEM_REQUEST:
             return {
@@ -44,7 +43,6 @@ const myReducer = (state = initialState, action) => {
                 items: [],
                 error: action.payload
             }
-
         //add item
         case Types.ADD_ITEM_REQUEST:
             return {
@@ -63,7 +61,6 @@ const myReducer = (state = initialState, action) => {
                 items: [],
                 error: action.payload
             }
-        
         //Update item
         case Types.UPDATE_ITEM_REQUEST:
             return {

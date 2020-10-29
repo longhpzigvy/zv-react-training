@@ -19,7 +19,14 @@ const Table = props => {
         })
     );
     useEffect(() => {
-        props.fetchItems();
+
+        callApi('todos', 'GET', null).then(res => {
+            const items = res.data;
+            dispatch(fetchItemsSuccess(items));
+        }).catch(err => {
+            const errMessage = err.message;
+            dispatch(fetchItemsFailure(errMessage));
+        });
     }, []);
     return (
         <table className="table table-bordered table-hover">

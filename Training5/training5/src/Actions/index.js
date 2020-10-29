@@ -108,7 +108,7 @@ export const addItemFailure = err => {
 
 //Update item
 export const updateItem = (item, id) => {
-    return dispatch => {
+    return (dispatch) => {
         dispatch(updateItemRequest());
         callApi(`todos/${id}`, 'PUT', item).then(res => {
             dispatch(updateItemSuccess(item, id));

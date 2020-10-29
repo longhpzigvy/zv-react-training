@@ -5,18 +5,22 @@ const Task1 = props => {
     const [items, setItems] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     useEffect(() => {
-      fetch('https://official-joke-api.appspot.com/random_joke').then(json => {
+      fetch('https://official-joke-api.appspot.com/random_joke').then(res => res.json()).then(json => {
         setItems([...items, json]);
-        setIsLoaded(isLoaded => !isLoaded);
+        setIsLoaded(true);
       });
     }, []);
     useEffect(() => {
     }, [items]);
-    const getMoreJoke = debounce(() => {
-      fetch('https://official-joke-api.appspot.com/random_joke').then(res => res.json()).then(json => {
+    const getMoreJoke = debounce(async () => {
+      try {
+        const res = await fetch('https://official-joke-api.appspot.com/random_joke');
+        const json = res.json();
         setItems([...items, json]);
-      });
-    }, 500); 
+      } catch (error) {
+
+      }
+    }, 5000); 
     if (!isLoaded) {
       return (
         <div>
