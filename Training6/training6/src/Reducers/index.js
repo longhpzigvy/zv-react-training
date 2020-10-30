@@ -4,7 +4,7 @@ import logInStatus from './logInStatus';
 
 const myReducer = combineReducers({
     task,
-    logIn: logInStatus 
+    login: logInStatus 
 })
 
 export default myReducer;

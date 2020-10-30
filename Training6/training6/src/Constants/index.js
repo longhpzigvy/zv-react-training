@@ -8,8 +8,9 @@ export const STATUS_CODE = {
     UPDATED: 202
 }
 
-export const GET_USER_ACCOUNT = 'GET_USER_ACCOUNT';
-export const CHECK_USER_ACCOUNT = 'CHECK_USER_ACCOUNT';
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOG_OUT = 'LOG_OUT';
 
 

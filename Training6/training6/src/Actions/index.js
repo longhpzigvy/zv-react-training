@@ -1,28 +1,30 @@
 import * as taskTypes from '../Constants/index';
 
-export const fetchListTask = () => {
-    return {
-        type: taskTypes.FETCH_TASK
-    }
-}
 
-export const getUserAccount = (acc) => {
+export const loginRequest = (user, password) => {
     return {
-        type: taskTypes.GET_USER_ACCOUNT,
+        type: taskTypes.LOGIN_REQUEST,
         payload: {
-            acc
+            user, password
         }
     }
 }
 
-export const checkUserAccount = (acc) => {
+export const loginSuccess = () => {
     return {
-        type: taskTypes.CHECK_USER_ACCOUNT,
+        type: taskTypes.LOGIN_SUCCESS
+    }
+}
+
+export const loginFailure = (error) => {
+    return {
+        type: taskTypes.LOGIN_FAILURE,
         payload: {
-            acc
+            error
         }
     }
 }
+
 
 export const logOut = _ => {
     return {

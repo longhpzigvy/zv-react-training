@@ -1,12 +1,12 @@
 import React from 'react';
-import * as Actions from './Actions/index';
 import {connect} from 'react-redux';
 import LoginForm from './Components/LoginForm';
 import Content from './Components/Content';
 import './App.css';
+import {getLogin} from './Selectors/login.selector';
 
 function App(props) {
-  const content = props.logIn ? <Content /> : <LoginForm />
+  const content = props.login.logInStatus ? <Content /> : <LoginForm />
   return (
     <div className='container'>
       {content}
@@ -15,10 +15,7 @@ function App(props) {
 }
 const mapStateToProp = state => {
   return {
-    logIn: state.logIn.logInStatus
+    login: getLogin(state)
   }
 }
-const mapDispatchToProp = {
-  fetchListTask: Actions.fetchListTask
-}
-export default connect(mapStateToProp, mapDispatchToProp)(App);
+export default connect(mapStateToProp, null)(App);

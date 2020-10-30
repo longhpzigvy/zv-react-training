@@ -1,32 +1,47 @@
-import {takeLatest, delay, put} from 'redux-saga/effects';
+import {delay, put, call, takeLatest} from 'redux-saga/effects';
 import * as taskTypes from '../Constants/index';
 import * as Actions from '../Actions';
+import {APIauthorize} from '../API/api';
 
-// function* watchFetchListTaskAction() {
-//     yield take(taskTypes.FETCH_TASK);
-//     //block
-//     const resp = yield call(getList)//call 1 function
-//     //block cho den khi call xong
-//     console.log('resp:', resp)
-//     const {data, status} = resp;
-//     if(status === STATUS_CODE.SUCCESS){
-//         //dispatch action fetch list task success
-//         console.log('success');
-//     } else {
-//         //dispatch action fetch list task failure
-//         console.log('failure');
-//     }
-// }
+function* authorize(user, password) {
+    try {
+        const token = yield call(APIauthorize, user, password);
+        return token;
+    } catch(err) {
+        return err;
+    }
+}
 
 
-function* getUserAccount({payload}) {
+function* loginRequest({payload}) {
     yield delay(500);
-    const account = payload.acc;
-    yield put(Actions.checkUserAccount(account));
+    const {user, password} = payload;
+    const token = yield call(authorize, user, password);
+    if(token.data.token){
+        yield put(Actions.loginSuccess());
+    } else {
+        yield put(Actions.loginFailure(token.data.error));
+    }
 }
 
 function* rootSaga() {
-    yield takeLatest(taskTypes.GET_USER_ACCOUNT, getUserAccount)
+    yield takeLatest(taskTypes.LOGIN_REQUEST, loginRequest);
 }
 
 export default rootSaga;
+
+
+//[{
+//     fullName: 'John Doe',
+//     email: 'john@doe.com',
+//     password: 'zigvy123',
+//     id: 'fb3111f1-ea6e-11e9-ba42-2368758065ba',
+//     role: 'Admin',
+  
+//   }, {
+//     fullName: 'John Smith',
+//     email: 'john@smith.com',
+//     password: 'zigvy123',
+//     id: '781f9a70-ea6e-11e9-a9a5-4d422b2ea8f4',
+//     role: 'User',
+//}]

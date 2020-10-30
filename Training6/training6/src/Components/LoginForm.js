@@ -1,23 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Actions from '../Actions/index';
 import {connect} from 'react-redux';
+import {getLogin} from '../Selectors/login.selector';
 
 const LoginForm = props => {
-    const [userId, setUserId] = useState('');
-    const [userPassword, setUserPassword] = useState('');
-    const onChangeId = e => {
-        setUserId(e.target.value);
+    const [user, setUser] = useState('');
+    const [password, setPassword] = useState('');
+    const onChangeUser = e => {
+        setUser(e.target.value);
     }
     const onChangePassword = e => {
-        setUserPassword(e.target.value);
+        setPassword(e.target.value);
     }
     const onSubmit = e => {
         e.preventDefault();
-        const userAccount = {
-            id: userId,
-            password: userPassword
-        }
-        props.getUserAccount(userAccount);
+        props.loginRequest(user, password);
     }
     return(
         <form onSubmit={onSubmit}>
@@ -27,8 +24,8 @@ const LoginForm = props => {
                     type="text" 
                     className="form-control" 
                     placeholder="Enter user name" 
-                    value = {userId}
-                    onChange={onChangeId}
+                    value = {user}
+                    onChange={onChangeUser}
                 />
                 <small className="form-text text-muted">
                     We'll never share your account with anyone else.
@@ -40,7 +37,7 @@ const LoginForm = props => {
                 type="password" 
                 className="form-control" 
                 placeholder="Password"
-                value={userPassword}
+                value={password}
                 onChange={onChangePassword}
                 />
             </div>
@@ -48,9 +45,13 @@ const LoginForm = props => {
         </form>
     );
 }
-
+const mapStateTopProp = state => {
+    return {
+        login: getLogin(state)
+    }
+}
 const mapDispatchToProp = {
-    getUserAccount: Actions.getUserAccount
+    loginRequest: Actions.loginRequest
 }
 
-export default connect(null, mapDispatchToProp)(LoginForm);
+export default connect(mapStateTopProp, mapDispatchToProp)(LoginForm);
