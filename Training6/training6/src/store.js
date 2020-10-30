@@ -10,16 +10,12 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 //create redux saga
 import createSagaMiddleware from 'redux-saga';
 const sagaMiddleware = createSagaMiddleware();
-
 const persistConfig = {
     key: 'root',
     storage,
+    blacklist: ['login']
 }
-
-
 const persistedReducer = persistReducer(persistConfig, myReducer);
-
 export const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
-export const persistor = persistStore(store)
-
+export const persistor = persistStore(store);
 sagaMiddleware.run(rootSaga); //run root saga

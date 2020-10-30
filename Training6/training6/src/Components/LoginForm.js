@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as Actions from '../Actions/index';
 import {connect} from 'react-redux';
 import {getLogin} from '../Selectors/login.selector';
@@ -19,6 +19,7 @@ const LoginForm = props => {
     return(
         <form onSubmit={onSubmit}>
             <div className="form-group">
+                <h3 style={{color: 'red'}}>{props.login.error}</h3>
                 <label>User name</label>
                 <input 
                     type="text" 

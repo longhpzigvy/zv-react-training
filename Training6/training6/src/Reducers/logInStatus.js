@@ -11,7 +11,8 @@ const myReducer = (state = initialState, action) => {
         case Types.LOGIN_REQUEST:
             return {
                 ...state,
-                loading: true
+                loading: true,
+                error: '',
             }
         case Types.LOGIN_SUCCESS:
             return {

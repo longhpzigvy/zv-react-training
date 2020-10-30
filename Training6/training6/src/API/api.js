@@ -1,6 +1,4 @@
 import axios from 'axios';
-
-
 export const APIauthorize = (email, password) => {
     return axios({
         method: 'post',
@@ -9,6 +7,5 @@ export const APIauthorize = (email, password) => {
           email,
           password
         }
-    }).then(res => res)
-    .catch(err => err);
+    });
 };
