@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, memo} from "react"
 import "./task3.css"
 
 const Task3 = () => {
@@ -11,14 +11,17 @@ const Task3 = () => {
     React.useEffect(() => {
         let timer = null
         if (!isStop) {
-            timer = count > 0 && setInterval(() => setCountDown(count - 1), 1000);
-        } else if (isStop && count === 0) {
-            clearInterval(timer)
-        } else {
-            setCountDown(count)
+            timer = setInterval(() => setCountDown(t => t - 1), 1000);
         }
-        return () => clearInterval(timer);
-      }, [count, isStop]);
+
+        return () => { if(timer) clearInterval(timer) }
+      }, [isStop]);
+
+      React.useEffect(() => {
+        if (count === 0) {
+            setStop(true)
+        }
+      }, [count])
 
     const handleChange = (event) => {
         setValid(false)
@@ -41,7 +44,8 @@ const Task3 = () => {
             valid = false
             message = "Number must be greater than 0"
         } else {
-            setCountDown(Number(valueInput))
+            setCountDown(valueInput)
+            setStop(false)
         }
 
         setValid(valid)
@@ -49,7 +53,7 @@ const Task3 = () => {
     }
 
     const stopCountDown = () => {
-        setStop(!isStop)
+        setStop(state => !state);
     }
 
     return (
@@ -70,7 +74,7 @@ const Task3 = () => {
                         </div>
                         <button className="btn btn-success mr-2" onClick={validateInput}>Start</button>
                         {isValid && (
-                            <button className="btn btn-info" onClick={stopCountDown}>{!isStop ? "Stop" : "Continue"}</button>
+                            <button type="button" className="btn btn-info" onClick={stopCountDown}>{!isStop ? "Stop" : "Continue"}</button>
                         )}
                         <div className="mt-3">{count}</div>
                     </form>
@@ -80,4 +84,4 @@ const Task3 = () => {
     )
 }
 
-export default Task3
+export default memo(Task3)
