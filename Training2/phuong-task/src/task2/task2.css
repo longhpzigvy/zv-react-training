@@ -1,0 +1,12 @@
+.button-open {
+  background: rgb(197, 65, 92);
+  color: #ffffff;
+  padding: 10px;
+  margin-top: 20px;
+  outline: none;
+  border-radius: 6px;
+}
+
+.button-open:focus {
+  outline: none;
+}
