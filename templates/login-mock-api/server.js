@@ -58,6 +58,8 @@ router.post('/login', async function(req, res) {
     const token = await jwt.signToken(payload);
     res.json({
       token,
+      fullName: payload.fullName,
+      role: payload.role
     });
   } catch (error) {
     res.status(500).json({
