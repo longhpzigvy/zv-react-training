@@ -19,6 +19,7 @@
 - Able to create a website using React
 - Able to distinct 3 different types of React's component
 - Able to breakdown a big component into smaller components for reusing
+- Understanding about shallow-equal
 
 ## Plan
 - One training/reading section
