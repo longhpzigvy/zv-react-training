@@ -1,25 +1,21 @@
 import React, { Component } from "react";
 
 export default class KeyLogger extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { keyLogger: {} };
+    this.myInputRef = React.createRef();
   }
 
   componentDidMount() {
-    document
-      .getElementById("myInput")
-      .addEventListener("keydown", this.onInput, false);
+    this.myInputRef.current.addEventListener("keydown", this.onInput, false);
   }
 
   componentWillUnmount() {
-    document
-      .getElementById("myInput")
-      .removeEventListener("keydown", this.onInput, false);
+    this.myInputRef.current.removeEventListener("keydown", this.onInput, false);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.keyLogger === nextState.keyLogger) return false;
     return true;
   }
 
@@ -43,9 +39,24 @@ export default class KeyLogger extends Component {
 
   render() {
     return (
-      <div>
-        <textarea type="text" id="myInput" rows="10" cols="50" />
-        <h3>{JSON.stringify(this.state.keyLogger)}</h3>
+      <div
+        className={`modal ${
+          this.props.isShow ? "display-block" : "display-none"
+        }`}
+      >
+        <div className="modal-content">
+          <span className="close" onClick={this.props.handleClose}>
+            &times;
+          </span>
+          <textarea
+            type="text"
+            id="myInput"
+            ref={this.myInputRef}
+            rows="10"
+            cols="100"
+          />
+          <h3>{JSON.stringify(this.state.keyLogger)}</h3>
+        </div>
       </div>
     );
   }

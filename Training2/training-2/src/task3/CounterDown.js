@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
-import ThirdModal from "./ThirdModal";
-import CloseButton from "../task2/CloseButton";
+import Counter from "./Counter";
 
 const CounterDown = () => {
   const inputRef = useRef(null);
@@ -8,7 +7,7 @@ const CounterDown = () => {
   const [state, setState] = useState({
     errMsg: "",
     inputVal: "",
-    showCounterModal: false,
+    showCounter: false,
   });
 
   const focusNumberInput = () => {
@@ -41,7 +40,7 @@ const CounterDown = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (handleValidation().isValid) {
-      setState({ ...state, showCounterModal: true });
+      setState({ ...state, showCounter: true });
     } else {
       setState({ ...state, errMsg: handleValidation().msg });
     }
@@ -62,17 +61,7 @@ const CounterDown = () => {
         </button>
       </form>
       {state.errMsg && <p className="err-msg">{state.errMsg}</p>}
-      {state.showCounterModal && (
-        <ThirdModal
-          counter={parseInt(state.inputVal, 10)}
-          isShow={state.showCounterModal}
-        >
-          <CloseButton
-            handleClose={() => setState({ ...state, showCounterModal: false })}
-          />
-          <p>Third Modal</p>
-        </ThirdModal>
-      )}
+      {state.showCounter && <Counter counter={parseInt(state.inputVal, 10)} />}
     </>
   );
 };

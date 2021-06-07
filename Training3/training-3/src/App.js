@@ -12,10 +12,19 @@ class App extends React.Component {
     this.setState({ isDisplayModal: !this.state.isDisplayModal });
   };
 
+  closeModal = () => {
+    this.setState({
+      isDisplayModal: false,
+    });
+  };
+
   render() {
     return (
-      <div className="App">
-        {this.state.isDisplayModal && <KeyLogger />}
+      <div className="container">
+        <KeyLogger
+          isShow={this.state.isDisplayModal}
+          handleClose={this.closeModal}
+        />
         <button onClick={this.handleClick}>Toggle Modal</button>
       </div>
     );
