@@ -8,7 +8,8 @@ export default class KeyLogger extends Component {
   }
 
   componentDidMount() {
-    // this.myInputRef.current.addEventListener("keydown", this.onInput, false);
+    this.props.isShow &&
+      this.myInputRef.current.addEventListener("keydown", this.onInput, false);
   }
 
   componentWillUnmount() {

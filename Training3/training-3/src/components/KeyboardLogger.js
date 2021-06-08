@@ -17,9 +17,7 @@ const KeyboardLogger = ({ isShow, handleClose }) => {
 
   useEffect(() => {
     let ref = myInputRef.current;
-    isShow
-      ? ref.addEventListener("keydown", onInput, false)
-      : ref.removeEventListener("keydown", onInput, false);
+    isShow && ref.addEventListener("keydown", onInput, false);
     return () => ref.removeEventListener("keydown", onInput, false);
   }, [isShow]);
 
