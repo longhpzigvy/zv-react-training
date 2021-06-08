@@ -8,7 +8,7 @@ export default class KeyLogger extends Component {
   }
 
   componentDidMount() {
-    this.myInputRef.current.addEventListener("keydown", this.onInput, false);
+    // this.myInputRef.current.addEventListener("keydown", this.onInput, false);
   }
 
   componentWillUnmount() {
@@ -20,8 +20,14 @@ export default class KeyLogger extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(prevProps);
-    console.log(prevState);
+    if (this.props.isShow === prevProps.isShow) return;
+    this.props.isShow
+      ? this.myInputRef.current.addEventListener("keydown", this.onInput, false)
+      : this.myInputRef.current.removeEventListener(
+          "keydown",
+          this.onInput,
+          false
+        );
   }
 
   static getDerivedStateFromProps(props, state) {

@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
-import KeyLogger from "./components/KeyLogger";
+// import KeyLogger from "./components/KeyLogger";
+import KeyboardLogger from "./components/KeyboardLogger";
 
 class App extends React.Component {
   constructor() {
@@ -21,7 +22,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <KeyLogger
+        <KeyboardLogger
           isShow={this.state.isDisplayModal}
           handleClose={this.closeModal}
         />
