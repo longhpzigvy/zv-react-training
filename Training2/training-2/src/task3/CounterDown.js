@@ -52,7 +52,7 @@ const CounterDown = () => {
         <input
           ref={inputRef}
           type="text"
-          value={state.submitValue}
+          value={state.inputVal}
           onClick={focusNumberInput}
           onChange={(e) => handleChange(e)}
         />
@@ -61,7 +61,10 @@ const CounterDown = () => {
         </button>
       </form>
       {state.errMsg && <p className="err-msg">{state.errMsg}</p>}
-      {state.showCounter && <Counter counter={parseInt(state.inputVal, 10)} />}
+      <Counter
+        counter={parseInt(state.inputVal, 10)}
+        isShow={state.showCounter}
+      />
     </>
   );
 };

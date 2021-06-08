@@ -1,54 +1,53 @@
 import { useState, useEffect } from "react";
 
-const Counter = ({ counter }) => {
+const Counter = ({ counter, isShow }) => {
   const [state, setState] = useState({
     counter: counter,
-    pause: false,
-    intervalId: "",
+    isStopping: false,
   });
 
-  const tick = () => {
-    state.intervalId = setInterval(() => {
-      setState((prevState) => ({
-        ...prevState,
-        counter:
-          prevState.counter > 0 ? prevState.counter - 1 : prevState.counter,
-      }));
-    }, 1000);
-  };
-
   useEffect(() => {
-    tick();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setState(() => ({
+      isStopping: false,
+      counter: counter,
+    }));
+  }, [counter]);
 
   useEffect(() => {
     if (state.counter === 0) {
-      return () => clearInterval(state.intervalId);
+      setState((prevState) => ({
+        ...prevState,
+        isStopping: true,
+      }));
     }
-  }, [state]);
+  }, [state.counter]);
+
+  useEffect(() => {
+    let intervalId;
+    if (state.isStopping === false) {
+      intervalId = setInterval(() => {
+        setState((prevState) => ({
+          ...prevState,
+          counter: prevState.counter - 1,
+        }));
+      }, 1000);
+    }
+    return () => clearInterval(intervalId);
+  }, [state.isStopping]);
 
   const toggleTimer = () => {
-    if (state.pause === true) {
-      setState((prevState) => ({
-        ...prevState,
-        pause: false,
-      }));
-      tick();
-    } else {
-      clearInterval(state.intervalId);
-      setState((prevState) => ({
-        ...prevState,
-        pause: true,
-      }));
-      return;
-    }
+    setState((prevState) => ({
+      ...prevState,
+      isStopping: !prevState.isStopping,
+    }));
   };
 
   return (
-    <div>
+    <div style={{ display: isShow ? "block" : "none" }}>
       <div>Countdown: {state.counter}</div>
-      <button onClick={toggleTimer}>{state.pause ? "Resume" : "Pause"}</button>
+      <button onClick={toggleTimer} disabled={state.counter === 0}>
+        {state.isStopping ? "Resume" : "Pause"}
+      </button>
     </div>
   );
 };
