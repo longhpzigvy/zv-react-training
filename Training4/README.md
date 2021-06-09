@@ -7,7 +7,7 @@
 - Using `debounce` and `throttle` (from lodash) to improve the performance
 
 ## Goal
-- Understanding `dobounce` and `throttle`
+- Understanding `debounce` and `throttle`
 - Understanding CORS problem
 - Create a simple app that use external API to get and display the data
 
