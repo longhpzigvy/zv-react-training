@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { InputGroup, FormControl, Button } from "react-bootstrap";
 import { addTodo } from "../actions/todos";
@@ -12,19 +12,22 @@ export default function AddTodo() {
     setText(e.target.value);
   }, []);
 
-  const add = useCallback(() => {
+  const add = () => {
     const trimmedText = text.trim();
+    console.log(text);
     if (trimmedText) {
       dispatch(addTodo(trimmedText));
       setText("");
     }
-  }, [dispatch, text]);
-  const addThrottled = _.throttle(add, 3000);
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const addThrottled = useMemo(() => _.throttle(add, 300), [text]);
 
   return (
     <InputGroup className="mb-3 mt-3">
       <FormControl onChange={(e) => handleChange(e)} value={text} />
-      <Button variant="outline-secondary" onClick={() => addThrottled()}>
+      <Button variant="outline-secondary" onClick={addThrottled}>
         Add
       </Button>
     </InputGroup>

@@ -17,11 +17,10 @@ export default function (state = initialState, action) {
         loading: true,
       };
     case todoAction.GET_TODOS_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         loading: false,
-        list: [...action.payload],
+        list: action.payload,
       };
     case todoAction.GET_TODOS_FAILURE:
       return {

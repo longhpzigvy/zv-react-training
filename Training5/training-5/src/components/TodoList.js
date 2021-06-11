@@ -1,6 +1,6 @@
 import { useSelectorTodo } from "../helpers/useSelectorTodo";
 import { useDispatch } from "react-redux";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { getTodos, searchTodo } from "../actions/todos";
 import { InputGroup, FormControl, Col } from "react-bootstrap";
 import TodoItem from "./TodoItem";
@@ -20,15 +20,13 @@ export default function TodoList() {
     },
     [dispatch]
   );
-  const searchDebounce = _.debounce(handleChange, 1000);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const searchDebounce = useMemo(() => _.debounce(handleChange, 1000), []);
 
   return (
     <Col xs="12">
       <InputGroup className="mb-3 mt-3">
-        <FormControl
-          onChange={(e) => searchDebounce(e)}
-          placeholder="Search.."
-        />
+        <FormControl onChange={searchDebounce} placeholder="Search.." />
       </InputGroup>
       <h1 style={{ color: "red" }}>Todo App</h1>
       {todos.list &&

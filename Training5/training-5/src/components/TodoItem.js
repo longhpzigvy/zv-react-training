@@ -1,10 +1,12 @@
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Card, Col, Row } from "react-bootstrap";
 import { deleteTodo, editTodo } from "../actions/todos";
+import { truncate } from "lodash";
 
 export default function TodoItem({ id, name, completed }) {
   const inputRef = useRef(true);
+  const [disabled, setDisabled] = useState(truncate);
   const dispatch = useDispatch();
 
   const handleDelete = useCallback(
@@ -22,7 +24,7 @@ export default function TodoItem({ id, name, completed }) {
   );
 
   const changeFocus = useCallback(() => {
-    inputRef.current.disabled = false;
+    setDisabled(false);
     inputRef.current.focus();
   }, []);
 
@@ -30,7 +32,7 @@ export default function TodoItem({ id, name, completed }) {
     (id, value, e) => {
       if (e.which === 13) {
         dispatch(editTodo(id, { name: value }));
-        inputRef.current.disabled = true;
+        setDisabled(true);
       }
     },
     [dispatch]
@@ -44,7 +46,7 @@ export default function TodoItem({ id, name, completed }) {
             <textarea
               ref={inputRef}
               style={{ border: "none" }}
-              disabled={inputRef}
+              disabled={disabled}
               defaultValue={name}
               onKeyPress={(e) => update(id, inputRef.current.value, e)}
             />
