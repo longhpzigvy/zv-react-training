@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Card, Col, Row } from "react-bootstrap";
 import { deleteTodo, editTodo } from "../actions/todos";
@@ -7,25 +7,34 @@ export default function TodoItem({ id, name, completed }) {
   const inputRef = useRef(true);
   const dispatch = useDispatch();
 
-  const handleDelete = (id) => {
-    dispatch(deleteTodo(id));
-  };
+  const handleDelete = useCallback(
+    (id) => {
+      dispatch(deleteTodo(id));
+    },
+    [dispatch]
+  );
 
-  const handleChange = (id, value) => {
-    dispatch(editTodo(id, { completed: !value }));
-  };
+  const handleChange = useCallback(
+    (id, value) => {
+      dispatch(editTodo(id, { completed: !value }));
+    },
+    [dispatch]
+  );
 
-  const changeFocus = () => {
+  const changeFocus = useCallback(() => {
     inputRef.current.disabled = false;
     inputRef.current.focus();
-  };
+  }, []);
 
-  const update = (id, value, e) => {
-    if (e.which === 13) {
-      dispatch(editTodo(id, { name: value }));
-      inputRef.current.disabled = true;
-    }
-  };
+  const update = useCallback(
+    (id, value, e) => {
+      if (e.which === 13) {
+        dispatch(editTodo(id, { name: value }));
+        inputRef.current.disabled = true;
+      }
+    },
+    [dispatch]
+  );
 
   return (
     <Card style={{ background: completed ? "#90ee90" : "" }}>

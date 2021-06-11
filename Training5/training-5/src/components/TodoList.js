@@ -1,33 +1,38 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useSelectorTodo } from "../helpers/useSelectorTodo";
+import { useDispatch } from "react-redux";
+import { useCallback, useEffect } from "react";
 import { getTodos, searchTodo } from "../actions/todos";
 import { InputGroup, FormControl, Col } from "react-bootstrap";
 import TodoItem from "./TodoItem";
+var _ = require("lodash");
 
 export default function TodoList() {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.todos);
-  const filterTodos = data.completed
-    ? data.list.filter((todo) => todo.completed === data.completed)
-    : data.list;
-  const todos = filterTodos.filter((todo) => todo.name.includes(data.keyword));
+  const todos = useSelectorTodo();
 
   useEffect(() => {
     dispatch(getTodos());
   }, [dispatch]);
 
-  const handleChange = (e) => {
-    dispatch(searchTodo(e.target.value));
-  };
+  const handleChange = useCallback(
+    (e) => {
+      dispatch(searchTodo(e.target.value));
+    },
+    [dispatch]
+  );
+  const searchDebounce = _.debounce(handleChange, 1000);
 
   return (
     <Col xs="12">
       <InputGroup className="mb-3 mt-3">
-        <FormControl onChange={(e) => handleChange(e)} placeholder="Search.." />
+        <FormControl
+          onChange={(e) => searchDebounce(e)}
+          placeholder="Search.."
+        />
       </InputGroup>
       <h1 style={{ color: "red" }}>Todo App</h1>
-      {todos &&
-        todos.map((todo) => (
+      {todos.list &&
+        todos.list.map((todo) => (
           <TodoItem
             key={todo.id}
             id={todo.id}
@@ -35,6 +40,7 @@ export default function TodoList() {
             completed={todo.completed}
           />
         ))}
+      {todos.error && <p>{todos.error}</p>}
     </Col>
   );
 }
