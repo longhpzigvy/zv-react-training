@@ -29,7 +29,12 @@ export default function TodoList() {
         <FormControl onChange={searchDebounce} placeholder="Search.." />
       </InputGroup>
       <h1 style={{ color: "red" }}>Todo App</h1>
-      {todos.list &&
+      {todos.isFetching ? (
+        <div className="spinner-border" role="status">
+          <span className="sr-only"> </span>
+        </div>
+      ) : (
+        todos.list &&
         todos.list.map((todo) => (
           <TodoItem
             key={todo.id}
@@ -37,7 +42,8 @@ export default function TodoList() {
             name={todo.name}
             completed={todo.completed}
           />
-        ))}
+        ))
+      )}
       {todos.error && <p>{todos.error}</p>}
     </Col>
   );

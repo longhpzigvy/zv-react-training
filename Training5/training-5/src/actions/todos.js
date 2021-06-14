@@ -38,7 +38,7 @@ export const addTodo = (name) => async (dispatch) => {
 
 // DELETE TODO
 export const deleteTodo = (id) => async (dispatch) => {
-  dispatch({ type: action.DELETE_TODO_REQUEST });
+  dispatch({ type: action.DELETE_TODO_REQUEST, payload: id });
   try {
     await axios.delete(`http://localhost:9000/todos/${id}/`);
     dispatch({
@@ -48,14 +48,14 @@ export const deleteTodo = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: action.DELETE_TODO_FAILURE,
-      payload: err,
+      payload: { err: err, id: id },
     });
   }
 };
 
 // EDIT TODO
 export const editTodo = (id, values) => async (dispatch) => {
-  dispatch({ type: action.EDIT_TODO_REQUEST });
+  dispatch({ type: action.EDIT_TODO_REQUEST, payload: id });
   try {
     const res = await axios.put(`http://localhost:9000/todos/${id}/`, values);
     dispatch({
@@ -65,7 +65,7 @@ export const editTodo = (id, values) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: action.EDIT_TODO_FAILURE,
-      payload: err,
+      payload: { err: err, id: id },
     });
   }
 };

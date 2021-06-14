@@ -1,5 +1,5 @@
 import { useCallback, useState, useMemo } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { InputGroup, FormControl, Button } from "react-bootstrap";
 import { addTodo } from "../actions/todos";
 var _ = require("lodash");
@@ -7,6 +7,7 @@ var _ = require("lodash");
 export default function AddTodo() {
   const [text, setText] = useState("");
   const dispatch = useDispatch();
+  const todos = useSelector((state) => state.todos);
 
   const handleChange = useCallback((e) => {
     setText(e.target.value);
@@ -26,9 +27,15 @@ export default function AddTodo() {
   return (
     <InputGroup className="mb-3 mt-3">
       <FormControl onChange={(e) => handleChange(e)} value={text} />
-      <Button variant="outline-secondary" onClick={addThrottled}>
-        Add
-      </Button>
+      {todos.isCreating ? (
+        <div className="spinner-border" role="status">
+          <span className="sr-only"> </span>
+        </div>
+      ) : (
+        <Button variant="outline-secondary" onClick={addThrottled}>
+          Add
+        </Button>
+      )}
     </InputGroup>
   );
 }
