@@ -2,11 +2,10 @@ import { useRef, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Card, Col, Row } from "react-bootstrap";
 import { deleteTodo, editTodo } from "../actions/todos";
-import { truncate } from "lodash";
 
 export default function TodoItem({ id, name, completed }) {
   const inputRef = useRef(true);
-  const [disabled, setDisabled] = useState(truncate);
+  const [disabled, setDisabled] = useState(true);
   const dispatch = useDispatch();
 
   const handleDelete = useCallback(

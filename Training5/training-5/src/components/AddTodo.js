@@ -14,7 +14,6 @@ export default function AddTodo() {
 
   const add = () => {
     const trimmedText = text.trim();
-    console.log(text);
     if (trimmedText) {
       dispatch(addTodo(trimmedText));
       setText("");
