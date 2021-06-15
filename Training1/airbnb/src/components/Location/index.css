@@ -1,0 +1,10 @@
+.location {
+  margin-left: 50px;
+}
+.location div {
+  display: inline-block;
+}
+
+.cities div {
+  display: grid;
+}

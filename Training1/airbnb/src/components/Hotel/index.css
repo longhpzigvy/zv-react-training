@@ -1,0 +1,19 @@
+.hotel{
+    margin-left: 50px;
+}
+.place{
+    display: flex;    
+    
+}
+.hotel div{
+    display: flex;
+}
+.place img{
+    border-radius: 10px;  
+}
+
+.place p{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 5px;
+}

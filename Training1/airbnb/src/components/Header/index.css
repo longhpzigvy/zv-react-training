@@ -1,0 +1,25 @@
+.header {
+  margin-left: 50px;
+}
+.nav img {
+  width: 25px;
+  height: 25px;
+}
+.nav div {
+  display: inline;
+  width: 600px;
+  height: 50px;
+  font-size: 16px;
+}
+.input {
+  border-radius: 20px;
+  display: grid;
+  width: 100px;
+}
+.input input {
+  border: none;
+}
+.input button {
+  height: 40px;
+  width: 100px;
+}

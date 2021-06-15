@@ -1,0 +1,15 @@
+.host {
+  margin-left: 50px;
+}
+
+.host div {
+  width: 400px;
+}
+.host div h1 {
+  font-size: 40px;
+}
+.host button {
+  height: 40px;
+  width: 200px;
+  border-radius: 10px;
+}
