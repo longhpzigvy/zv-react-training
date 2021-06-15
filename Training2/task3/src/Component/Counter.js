@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 const Counter = (props) => {
     const [counter, setCounter] = useState(props.num);
     const [stop, setStop] = useState(false);
+
     useEffect(() => {
         const interval = setInterval(() => {
-            if (counter !== 0 && stop) {
+            if (counter === 0 || stop) {
                 return;
             }
             setCounter((prevCounter) => prevCounter - 1);
@@ -17,7 +18,13 @@ const Counter = (props) => {
     return (
         <>
             <p>{counter}</p>
-            <button onClick={() => setStop(true)}>Stop</button>
+            <button
+                onClick={() => {
+                    setStop(!stop);
+                }}
+            >
+                {stop ? "Resume" : "Stop"}
+            </button>
         </>
     );
 };
