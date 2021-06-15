@@ -2,18 +2,24 @@ import { useState, useEffect } from "react";
 
 const Counter = (props) => {
     const [counter, setCounter] = useState(props.num);
+    const [stop, setStop] = useState(false);
     useEffect(() => {
         const interval = setInterval(() => {
-            if (counter === 0) {
+            if (counter !== 0 && stop) {
                 return;
             }
             setCounter((prevCounter) => prevCounter - 1);
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [counter]);
+    }, [counter, stop]);
 
-    return <p>{counter}</p>;
+    return (
+        <>
+            <p>{counter}</p>
+            <button onClick={() => setStop(true)}>Stop</button>
+        </>
+    );
 };
 
 export default Counter;
