@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "./Component/Modal";
-import "./App.css";
+import classes from "./App.module.css";
 const App = (props) => {
     const [isShow, setIsShow] = useState(false);
     const toggleModal = () => {
@@ -8,20 +8,16 @@ const App = (props) => {
     };
 
     return (
-        <div className="App">
+        <div className={classes.App}>
             <button
-                class="toggle-button"
+                className={`${isShow ? classes.none : ""}`}
                 id="centered-toggle-button"
                 onClick={toggleModal}
             >
                 show Modal
             </button>
-
             <Modal onClose={toggleModal} show={isShow}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis
-                deserunt corrupti, ut fugit magni qui quasi nisi amet
-                repellendus non fuga omnis a sed impedit explicabo accusantium
-                nihil doloremque consequuntur.
+                Hello World
             </Modal>
         </div>
     );
