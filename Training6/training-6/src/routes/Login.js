@@ -1,12 +1,12 @@
 import React from "react";
 import { Form, Input, Button, Spin } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../actions/authentication";
-import withAuth from "../hoc/WithAuth";
+import { withRouter } from "react-router-dom";
 
-const Login = () => {
+const Login = (props) => {
   const dispatch = useDispatch();
   const authentication = useSelector((state) => state.authentication);
 
@@ -16,6 +16,10 @@ const Login = () => {
     },
     [dispatch]
   );
+
+  useEffect(() => {
+    authentication.user && props.history.push("/app");
+  });
 
   return (
     <div style={{ padding: "24px" }}>
@@ -70,4 +74,4 @@ const Login = () => {
   );
 };
 
-export default withAuth(Login);
+export default withRouter(Login);

@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { fetchUserAction } from "../actions/user";
 import { Layout } from "antd";
-import withAuth from "../hoc/WithAuth";
 
 const { Content } = Layout;
 
@@ -40,4 +39,4 @@ const SubContent = (props) => {
   );
 };
 
-export default withAuth(withRouter(SubContent));
+export default withRouter(SubContent);

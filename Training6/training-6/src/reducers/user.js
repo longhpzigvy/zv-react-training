@@ -19,7 +19,7 @@ export function user(state = initialState, action) {
         ...state,
         isFetching: false,
         error: action.payload.error ? action.payload.error : null,
-        users: action.payload.users ? action.payload.users : null,
+        users: action.payload.data.users ? action.payload.data.users : null,
       };
     case types.FETCH_USERS_FAILURE:
       return {
@@ -47,6 +47,6 @@ export function user(state = initialState, action) {
         error: action.payload,
       };
     default:
-      return {};
+      return state;
   }
 }

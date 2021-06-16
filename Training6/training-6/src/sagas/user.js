@@ -1,11 +1,21 @@
 import { call, put } from "redux-saga/effects";
-import { fetchUsers, fetchUser } from "../services/user";
+import { fetchUsers, fetchUser } from "../services";
 import * as types from "../actions/types";
 
 export function* fetchUsersSaga(payload) {
   try {
     const res = yield call(fetchUsers, payload);
-    yield put({ type: types.FETCH_USERS_SUCCESS, payload: res.data });
+    if (res === 401)
+      yield put({
+        type: types.FETCH_USERS_FAILURE,
+        payload: res,
+      });
+    else {
+      yield put({
+        type: types.FETCH_USERS_SUCCESS,
+        payload: { data: res.data },
+      });
+    }
   } catch (error) {
     yield put({ type: types.FETCH_USERS_FAILURE, payload: error });
   }

@@ -22,6 +22,7 @@ const MyTransformer = createTransform(
           : null,
       };
     }
+    return { ...outboundState };
   },
   {}
 );
