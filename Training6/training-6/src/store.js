@@ -10,15 +10,19 @@ const middleware = applyMiddleware(sagaMiddleware);
 
 const MyTransformer = createTransform(
   (inboundState, key) => ({ ...inboundState }),
-  (outboundState, key) => ({
-    ...outboundState,
-    user: outboundState.user
-      ? outboundState.user.exp * 1000 > Date.now() && outboundState.user
-      : null,
-    token: outboundState.user
-      ? outboundState.user.exp * 1000 > Date.now() && outboundState.token
-      : null,
-  }),
+  (outboundState, key) => {
+    if (key === "authentication") {
+      return {
+        ...outboundState,
+        user: outboundState.user
+          ? outboundState.user.exp * 1000 > Date.now() && outboundState.user
+          : null,
+        token: outboundState.user
+          ? outboundState.user.exp * 1000 > Date.now() && outboundState.token
+          : null,
+      };
+    }
+  },
   {}
 );
 
