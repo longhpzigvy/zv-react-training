@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import Modal from "../task1/Modal";
 import CloseButton from "./CloseButton";
-import './index.css'
+import "./index.css";
 
 const CloseModal = () => {
   const [isShowing, setIsShowing] = useState(false);
 
   const handleClick = () => {
-    setIsShowing(!isShowing);
+    setIsShowing(true);
+  };
+
+  const handleClose = () => {
+    setIsShowing(false);
   };
   return (
     <div className="close-modal">
@@ -15,9 +19,9 @@ const CloseModal = () => {
       <button type="button" onClick={handleClick}>
         Click me
       </button>
-      <Modal isShowing={isShowing} hide={handleClick}>
+      <Modal isShowing={isShowing} hide={handleClose}>
         Hello
-        <CloseButton close={handleClick} />
+        <CloseButton close={handleClose} />
       </Modal>
     </div>
   );

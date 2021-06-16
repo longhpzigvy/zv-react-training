@@ -5,8 +5,11 @@ const Greeting = () => {
   const [isShowing, setIsShowing] = useState(false);
 
   const handleClick = () => {
-    setIsShowing(!isShowing);
+    setIsShowing(true);
   };
+  const handleClose =()=>{
+    setIsShowing(false);
+  }
 
   return (
     <div className="greeting">
@@ -14,7 +17,7 @@ const Greeting = () => {
       <button type="submit" onClick={handleClick}>
         Show modal
       </button>
-      <Modal isShowing={isShowing} hide={handleClick}>
+      <Modal isShowing={isShowing} hide={handleClose}>
         <p>Hello</p>
       </Modal>
     </div>
