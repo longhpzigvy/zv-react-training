@@ -12,8 +12,8 @@ const Experience = () => {
         hoặc trực tuyến.
       </p>
       <div>
-        {news.map(({ id, title, essay, imgUrl }) => (
-          <News id={id} title={title} essay={essay} imgUrl={imgUrl}/>
+        {news.map((experience) => (
+          <News item={experience}/>
         ))}
       </div>
     </div>

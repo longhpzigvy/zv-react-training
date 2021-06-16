@@ -1,19 +1,24 @@
 import React from "react";
+import PropsTypes from "prop-types";
 
 const City = (props) => {
   return (
-    <div className="cities" key={props.id} style={{width:'300px'}} >
-      <img
-        src={props.imgUrl}
-        alt="icon"
-        style={{ height: "60px", borderRadius: "10px",float:'left' }}
-      />
+    <div className="cities" key={props.item.id}>
+      <img src={props.item.imgUrl} alt="icon" />
       <div>
-        <p style={{ fontWeight: "bold" }}>{props.name}</p>
-        <p>{props.timeToDrive}</p>
+        <h1>{props.item.name}</h1>
+        <p>{props.item.timeToDrive}</p>
       </div>
     </div>
   );
 };
 
+City.propTypes = {
+  item: PropsTypes.shape({
+    id: PropsTypes.number,
+    name: PropsTypes.string,
+    timeToDrive: PropsTypes.string,
+    imgUrl:PropsTypes.string
+  })
+}
 export default City;

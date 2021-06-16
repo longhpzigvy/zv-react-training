@@ -1,6 +1,6 @@
 const infos = [
   {
-    name: [
+    names: [
       "Phương thức hoạt động của Airbnb",
       "Trang tin tức",
       "Nhà đầu tư",
@@ -15,7 +15,7 @@ const infos = [
     group: "GIỚI THIỆU",
   },
   {
-    name: [
+    names: [
       "Sự đa dạng và Cảm giác thân thuộc",
       "Tiện nghi phù hợp cho người khuyết tật",
       "Đối tác liên kết Airbnb",
@@ -26,7 +26,7 @@ const infos = [
     group: "CỘNG ĐỒNG",
   },
   {
-    name: [
+    names: [
       "Cho thuê nhà",
       "Tổ chức Trải nghiệm trực tuyến",
       "Tổ chức trải nghiệm",
@@ -36,8 +36,9 @@ const infos = [
     ],
     group: "ĐÓN TIẾP KHÁCH",
   },
+
   {
-    name: [
+    names: [
       "Biện pháp ứng phó với đại dịch COVID-19 của chúng tôi",
       "Trung tâm trợ giúp",
       "Các tùy chọn hủy",

@@ -1,3 +1,4 @@
+import React from "react";
 import Header from "./components/Header/index";
 import Hotel from "./components/Hotel/index";
 import Views from "./components/Views";
@@ -8,14 +9,14 @@ import Location from "./components/Location/index";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Header />
       <Location />
-      <Hotel />
       <Views />
+      <Hotel />
       <Experience />
       <Host />
-      <Footer/>
+      <Footer />
     </div>
   );
 }

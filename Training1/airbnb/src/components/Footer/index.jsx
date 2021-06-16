@@ -8,11 +8,11 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="above">
-        {infos.map(({ name, group }) => (
-          <Info names={name} group={group} />
+        {infos.map(info => (
+          <Info item={info} />
         ))}
       </div>
-      <div style={{ background: "gray", height:'2px',width:'1200px', margin:'50px 50px 10px 70px' }}></div>
+      <div className="br-line"></div>
       <div className="under">
         <div className="under-left">
           <p>© 2021 Airbnb, Inc</p>

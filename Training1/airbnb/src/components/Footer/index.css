@@ -32,3 +32,10 @@
 .under{
     margin-top: 5px;
 }
+
+.br-line{
+    background:gray;
+    width:1200px;
+    height:2px;
+    margin: 50px 50px 10px 70px;
+}

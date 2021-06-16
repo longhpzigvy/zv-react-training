@@ -1,10 +1,7 @@
 .hotel{
     margin-left: 50px;
 }
-.place{
-    display: flex;    
-    
-}
+
 .hotel div{
     display: flex;
 }
