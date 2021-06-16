@@ -13,7 +13,7 @@ const withAuth = (WrappedComponent) => {
     }
     shouldRedirect(props) {
       const path = props.location.pathname;
-      switch (props.isAdmin) {
+      switch (props.isLoggedIn) {
         case true:
           if (path === "/" || path === "/login")
             this.props.history.push("/app");
