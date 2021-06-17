@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./App.css";
 import QuoteItem from "./Component/QuoteItem";
 import _ from "lodash";
 
-const fetchAllCountries = () => {
+const fetchAllCountries = (url) => {
     return axios
-        .get("https://restcountries.eu/rest/v2/all")
+        .get(url)
         .then((res) => {
             return res;
         })
@@ -17,13 +17,17 @@ const fetchAllCountries = () => {
 
 const App = () => {
     const [loadedCountries, setLoadedCountries] = useState([]);
+    const inputRef = useRef();
+    let url = "https://restcountries.eu/rest/v2/all";
     useEffect(() => {
-        fetchAllCountries().then((randomData) => {
+        fetchAllCountries(url).then((randomData) => {
             setLoadedCountries(randomData.data);
         });
     }, []);
+    useEffect(() => {
+        inputRef.current = _.debounce(onSearchText, 1000);
+    }, []);
     const onSearchText = (input) => {
-        let url = "https://restcountries.eu/rest/v2/all";
         if (input.trim().length !== 0) {
             url = `https://restcountries.eu/rest/v2/name/${input}`;
         }
@@ -40,11 +44,10 @@ const App = () => {
                 setLoadedCountries(data);
             });
     };
-    const handleSearchText = _.debounce(onSearchText, 1000);
 
     const handleInputChange = (event) => {
         const input = event.target.value;
-        handleSearchText(input);
+        inputRef.current(input);
     };
     return (
         <>
