@@ -24,7 +24,6 @@ const App = () => {
             setLoadedQuotes((prevState) => {
                 return [...prevState, random.data];
             });
-            console.log(loadedQuotes);
         });
     };
     const clickHandler = () => {
