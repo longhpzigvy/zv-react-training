@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import axios from "axios";
 import { debounce } from "lodash";
 
 const Country = () => {
-  const [name, setName] = useState("");
   const [countries, setCountries] = useState([]);
 
-  useEffect(() => {
+  const fetchdata=(name)=>{
     axios
       .get(`http://localhost:5000/country?keyword=${name}`)
       .then((res) => {
-          if (!name) {
-              return setCountries([])
-          }
-          setCountries(res.data)
+        if (!name) {
+          return setCountries([]);
+        }
+        setCountries(res.data);
       })
       .catch((err) => console.log(err));
-  }, [name]);
+  }
 
   const handleChange = (e) => {
-    setName(e.target.value);
+    const {value}= e.target
+    debounceHandleChange(value)
   };
 
-  const debounceHandleChange = debounce(handleChange, 1000);
+  const debounceHandleChange = useCallback(debounce(nextValue=>fetchdata(nextValue), 1000), []);
   return (
     <div>
       <h1>Search country</h1>
-      <input onChange={debounceHandleChange} />
+      <input onChange={handleChange} />
       {countries.map((country) => (
         <div>
           <p>The country: {country.name}</p>
