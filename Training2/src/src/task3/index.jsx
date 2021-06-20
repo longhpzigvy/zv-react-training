@@ -5,31 +5,41 @@ const CountNumber = () => {
   const [number, setNumber] = useState(0);
 
   useEffect(() => {
-    let timer;
-    if (!isStart) {
-      clearTimeout(timer);
-      return number;
-    }
-    if (number > 0) {
-      timer = setTimeout(() => setNumber(number - 1), 1000);
-    }
     if (number === 0) {
+      setNumber(0);
       setIsStart(false);
     }
-  }, [number, isStart]);
+  }, [number]);
+
+  useEffect(() => {
+    let timer;
+    if (isStart) {
+      timer = setInterval(() => {
+        setNumber((preNumber) => preNumber - 1);
+      }, 1000);
+    }
+    return () => {
+        clearInterval(timer);
+    };
+  }, [isStart]);
 
   const handleChange = (e) => {
-    setNumber(e.target.value);
+    setNumber(parseInt(e.target.value, 10));
   };
 
   const handleStart = () => {
     if (!number) {
-      alert("Please in put the number");
+      setNumber(0);
+      setIsStart(false);
+      alert("Please input a number");
     }
     if (!(number - 1)) {
       alert("Invalid number. Must be a number");
+      setIsStart(false);
     }
     if (number < 0) {
+      setIsStart(false);
+
       alert("The number must be greater than zero");
     }
     setIsStart(true);
@@ -38,7 +48,7 @@ const CountNumber = () => {
   const handleStop = () => {
     setIsStart(false);
   };
-  
+
   return (
     <div className="count-down">
       <h1>Task 3</h1>
