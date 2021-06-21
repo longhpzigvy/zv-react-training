@@ -60,7 +60,9 @@ const Task = () => {
 
   return (
     <div>
-      <Modal isShowing={isShowing} hide={handleClose} children={alertMessage} />
+      <Modal isShowing={isShowing} hide={handleClose}>
+        <h5>{alertMessage}</h5>
+      </Modal>
       <h2>Your input here</h2>
       <input value={inputVal} onChange={handleInputChange} />
       <div>

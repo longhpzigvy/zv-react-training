@@ -11,9 +11,7 @@ const Modal = ({ isShowing, hide, children }) => {
       <div className="modal-header">
         <CloseButton handleClick={hide} />
       </div>
-      <div className="modal-body">
-        <h3>{children}</h3>
-      </div>
+      <div className="modal-body">{children}</div>
     </div>
   );
 };
