@@ -7,7 +7,7 @@ export const tasks = [
   {
     id: 2,
     name: "Task 2",
-    status: "Ready",
+    status: "Error",
   },
   {
     id: 3,
@@ -17,6 +17,6 @@ export const tasks = [
   {
     id: 4,
     name: "Task 4",
-    status: "Ready",
+    status: "Draft",
   },
 ];

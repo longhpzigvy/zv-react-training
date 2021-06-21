@@ -1,5 +1,5 @@
 import { eventChannel } from "redux-saga";
-import { call, put, race, take, delay } from "redux-saga/effects";
+import { call, put, take, delay } from "redux-saga/effects";
 import { getTasks, createTask, changeTaskStatus } from "../services";
 import * as types from "../actions/types";
 
@@ -37,40 +37,34 @@ function* startChannel(syncAction) {
 
   while (true) {
     yield take(channel);
-    if (navigator.onLine)
-      yield put({
-        type: types.CHANGE_TASK_STATUS_SUCCESS,
-        payload: syncAction.data,
-      });
+    yield put({
+      type: types.CHANGE_TASK_STATUS_SUCCESS,
+      payload: syncAction.data,
+    });
   }
 }
 
-function* delayNetworkStatus(interval) {
-  let events = {
-    interval: delay(interval * 1000),
-  };
-
-  yield race(events);
-}
-
-export function* changeTaskStatusSaga(payload) {
-  const options = {
-    syncAction: yield call(changeTaskStatus, payload),
-    delayByInterval: 2,
-  };
-
-  if (options.delayByInterval > 0) {
-    yield call(delayNetworkStatus, options.delayByInterval);
-  }
-
+export function* changeTaskStatusSaga(action) {
   try {
-    if (navigator.onLine) {
-      const res = yield call(changeTaskStatus, payload);
-      yield put({
-        type: types.CHANGE_TASK_STATUS_SUCCESS,
-        payload: res.data,
-      });
-    } else yield call(startChannel, options.syncAction);
+    const listStatus = [action.payload.status, "Ready", "Submitting"];
+    for (const status of listStatus) {
+      if (status === "Success") break;
+      yield delay(2000);
+      if (status === "Submitting" && !navigator.onLine) {
+        const syncAction = yield call(changeTaskStatus, {
+          payload: { id: action.payload.id, status: status },
+        });
+        yield call(startChannel, syncAction);
+      } else {
+        const res = yield call(changeTaskStatus, {
+          payload: { id: action.payload.id, status: status },
+        });
+        yield put({
+          type: types.CHANGE_TASK_STATUS_SUCCESS,
+          payload: res.data,
+        });
+      }
+    }
   } catch (e) {
     console.log(e);
   }

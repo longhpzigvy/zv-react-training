@@ -19,7 +19,7 @@ export const changeTaskStatusAction = (payload) => {
     type: types.CHANGE_TASK_STATUS_REQUEST,
     payload: {
       ...payload,
-      status: payload.status === "Ready" ? "Submitting" : payload.status,
+      status: payload.status,
     },
   };
 };
