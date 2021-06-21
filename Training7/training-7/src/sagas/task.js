@@ -21,7 +21,7 @@ export function* createTaskSaga(payload) {
   }
 }
 
-function* startChannel(syncAction) {
+export function* changeTaskStatusSaga(action) {
   const channel = eventChannel((listener) => {
     const handleConnectivityChange = (isConnected) => {
       listener(isConnected);
@@ -35,38 +35,23 @@ function* startChannel(syncAction) {
       );
   });
 
-  while (true) {
-    yield take(channel);
-    yield put({
-      type: types.CHANGE_TASK_STATUS_SUCCESS,
-      payload: syncAction.data,
-    });
-  }
-}
-
-export function* changeTaskStatusSaga(action) {
   let status = action.payload.status;
-  let step = 0;
 
   try {
-    while (step !== 3) {
-      yield delay(1000);
-      if (status === "Submitting" && !navigator.onLine) {
-        const syncAction = yield call(changeTaskStatus, {
-          payload: { id: action.payload.id, status: status },
-        });
-        yield call(startChannel, syncAction);
-      } else {
-        const res = yield call(changeTaskStatus, {
-          payload: { id: action.payload.id, status: status },
-        });
-        yield put({
-          type: types.CHANGE_TASK_STATUS_SUCCESS,
-          payload: res.data,
-        });
-        status = res.data.status;
+    while (true) {
+      if (status === "Ready" && !navigator.onLine) {
+        yield take(channel);
       }
-      step++;
+      yield delay(2000);
+      const res = yield call(changeTaskStatus, {
+        payload: { id: action.payload.id, status: status },
+      });
+      yield put({
+        type: types.CHANGE_TASK_STATUS_SUCCESS,
+        payload: res.data,
+      });
+      status = res.data.status;
+      if (status === "Success" || status === "Error") break;
     }
   } catch (e) {
     console.log(e);
