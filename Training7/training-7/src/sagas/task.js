@@ -45,11 +45,12 @@ function* startChannel(syncAction) {
 }
 
 export function* changeTaskStatusSaga(action) {
+  let status = action.payload.status;
+  let step = 0;
+
   try {
-    const listStatus = [action.payload.status, "Ready", "Submitting"];
-    for (const status of listStatus) {
-      if (status === "Success") break;
-      yield delay(2000);
+    while (step !== 3) {
+      yield delay(1000);
       if (status === "Submitting" && !navigator.onLine) {
         const syncAction = yield call(changeTaskStatus, {
           payload: { id: action.payload.id, status: status },
@@ -63,7 +64,9 @@ export function* changeTaskStatusSaga(action) {
           type: types.CHANGE_TASK_STATUS_SUCCESS,
           payload: res.data,
         });
+        status = res.data.status;
       }
+      step++;
     }
   } catch (e) {
     console.log(e);
