@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import "./App.css";
 import QuoteItem from "./Component/QuoteItem";
@@ -17,17 +17,15 @@ const fetchAllCountries = (url) => {
 
 const App = () => {
     const [loadedCountries, setLoadedCountries] = useState([]);
-    const inputRef = useRef();
     let url = "https://restcountries.eu/rest/v2/all";
     useEffect(() => {
         fetchAllCountries(url).then((randomData) => {
             setLoadedCountries(randomData.data);
         });
-    }, []);
-    useEffect(() => {
-        inputRef.current = _.debounce(onSearchText, 1000);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     const onSearchText = (input) => {
+        console.log("GO");
         if (input.trim().length !== 0) {
             url = `https://restcountries.eu/rest/v2/name/${input}`;
         }
@@ -44,10 +42,14 @@ const App = () => {
                 setLoadedCountries(data);
             });
     };
-
+    let fSearch = _.debounce(onSearchText, 1000);
+    useCallback(() => {
+        fSearch();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     const handleInputChange = (event) => {
         const input = event.target.value;
-        inputRef.current(input);
+        fSearch(input);
     };
     return (
         <>
