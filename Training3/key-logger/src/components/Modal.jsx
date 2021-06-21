@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from "react";
 
-const Modal = ({ isShown, hide, text }) => {
-  const [keys, setKeys] = useState([]);
+const Modal = ({ isShown, hide }) => {
+  const [text, setText] = useState("");
 
   useEffect(() => {
-    setKeys(text);
-  }, [text]);
+    const handleKeyDown = (e) => {
+      if (e.key === " ") {
+        return setText((t) => t.concat("Space"));
+      }
+
+      return setText((t) => t.concat(e.key));
+    };
+
+    if (isShown) {
+      document.addEventListener("keydown", handleKeyDown, false);
+    }
+
+    return () => document.removeEventListener("keydown", handleKeyDown, false);
+  }, [isShown]);
+  
   return (
-    <div className="modal" style={isShown ? null : { display: "none" }}>
-      <h1>Key Logger</h1>
-      <p>{keys}</p>
-      <button onClick={hide}>Close</button>
+    <div style={isShown ? null : { display: "none" }}>
+      <textarea />
+      <p>{text}</p>
+      <button onClick={hide}>close</button>
     </div>
   );
 };
