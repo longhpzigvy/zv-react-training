@@ -76,7 +76,7 @@ routerAuth.get('/users/my', function(req, res) {
 routerAuth.get('/users', function(req, res) {
   const currentUser = req.user;
   if (currentUser.role !== 'Admin') {
-    res.status(401).json({
+    res.status(403).json({
       error: 'You have not permission to perform this action',
     })
     return;
