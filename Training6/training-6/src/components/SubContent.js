@@ -1,41 +1,23 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { withRouter } from "react-router-dom";
-import { fetchUserAction } from "../actions/user";
-import { Layout } from "antd";
-
-const { Content } = Layout;
+import { useSelector } from "react-redux";
+import { withRouter, Redirect } from "react-router-dom";
 
 const SubContent = (props) => {
-  const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-  const paramId =
-    props.location.pathname.indexOf("users") > -1 &&
-    props.location.pathname.split("/").pop();
+  const users = useSelector((state) => state.user.users);
+  const paramId = props.location.pathname.split("/").pop();
 
-  useEffect(() => {
-    const user = paramId ? { id: paramId } : state.authentication.user;
-    dispatch(fetchUserAction(user));
-  }, [dispatch, paramId, state.authentication.user]);
+  const user = users.filter((user) => user.id === paramId);
 
   return (
-    <Layout style={{ padding: "0 24px 24px" }}>
-      <Content
-        className="site-layout-background"
-        style={{
-          padding: 24,
-          margin: 0,
-          minHeight: 280,
-        }}
-      >
-        {state.user.user && (
-          <div>
-            <p>{state.user.user.fullName}</p>
-            <p>{state.user.user.email}</p>
-          </div>
-        )}
-      </Content>
-    </Layout>
+    <>
+      {user.length > 0 ? (
+        <div style={{ textAlign: "right" }}>
+          <p>{user[0].fullName}</p>
+          <p>{user[0].email}</p>
+        </div>
+      ) : (
+        <Redirect to="/app/users" />
+      )}
+    </>
   );
 };
 

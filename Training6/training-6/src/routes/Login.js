@@ -19,7 +19,7 @@ const Login = (props) => {
 
   useEffect(() => {
     authentication.user && props.history.push("/app");
-  });
+  }, [authentication.user, props.history]);
 
   return (
     <div style={{ padding: "24px" }}>

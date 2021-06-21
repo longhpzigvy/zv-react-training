@@ -1,35 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import Home from "./routes/Home";
+import App from "./App";
 import "./App.css";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./store";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import Login from "./routes/Login";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={() => {
-                return store.getState().user ? (
-                  <Redirect to="/app" />
-                ) : (
-                  <Redirect to="/login" />
-                );
-              }}
-            />
-            <Route path="/app" component={Home} />
-            <Route exact path="/login" component={Login} />
-          </Switch>
+          <App />
         </BrowserRouter>
       </PersistGate>
     </Provider>

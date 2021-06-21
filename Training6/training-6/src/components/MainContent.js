@@ -1,51 +1,59 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Link, withRouter, Redirect } from "react-router-dom";
+import { Route, Link, Redirect, Switch } from "react-router-dom";
+import SubContent from "./SubContent";
 import { useEffect } from "react";
-import { fetchUsersAction } from "../actions/user";
+import { fetchUsersAction, fetchUserAction } from "../actions/user";
 import { Layout } from "antd";
 
 const { Content } = Layout;
 
-const MainContent = (props) => {
+const MainContent = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-  const paramId = props.location.pathname.split("/").pop();
+  const users = useSelector((state) => state.user.users);
+  const error = useSelector((state) => state.user.error);
+  const user = useSelector((state) => state.authentication.user);
 
   useEffect(() => {
-    dispatch(fetchUsersAction(state.authentication.user));
-  }, [state.authentication.user, dispatch]);
+    dispatch(fetchUserAction());
+    dispatch(fetchUsersAction());
+  }, [dispatch]);
 
   return (
-    <>
-      {state.user.error === 401 ? (
-        <Redirect to="/app" />
-      ) : (
-        <Layout style={{ padding: "0 24px 24px" }}>
-          <Content
-            className="site-layout-background"
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280,
-            }}
-          >
-            {state.user.users &&
-              state.user.users.map((user) =>
-                user.id === paramId ? (
-                  <p key={user.id}>
-                    <span>{user.fullName}</span>
-                  </p>
-                ) : (
-                  <p key={user.id}>
-                    <Link to={`/app/users/${user.id}`}>{user.fullName}</Link>
-                  </p>
-                )
-              )}
-          </Content>
-        </Layout>
-      )}
-    </>
+    <Layout style={{ padding: "0 24px 24px" }}>
+      <Content
+        className="site-layout-background"
+        style={{
+          padding: 24,
+          margin: 0,
+          minHeight: 280,
+        }}
+      >
+        <Switch>
+          <Route exact path="/app/myinfo">
+            <div>
+              <p>{user.fullName}</p>
+              <p>{user.email}</p>
+            </div>
+          </Route>
+          <Route path="/app/users">
+            {error === 401 ? (
+              <Redirect to="/app" />
+            ) : (
+              <div>
+                {users &&
+                  users.map((user) => (
+                    <p key={user.id}>
+                      <Link to={`/app/users/${user.id}`}>{user.fullName}</Link>
+                    </p>
+                  ))}
+                <Route exact path="/app/users/:id" component={SubContent} />
+              </div>
+            )}
+          </Route>
+        </Switch>
+      </Content>
+    </Layout>
   );
 };
 
-export default withRouter(MainContent);
+export default MainContent;
