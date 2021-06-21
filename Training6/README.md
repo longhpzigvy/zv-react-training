@@ -22,8 +22,11 @@
 - [Redux saga](https://github.com/redux-saga/redux-saga)
 
 ## Tasks and Requimenets
-- Implement an application that allow user to login
-- Once they've logged in and refresh the page, the user should be stayed as logged in
+- Task 1:
+  - Clone Task 2 in the previous training and using redux-saga
+  - Once they've logged in and refresh the page, the user should be stayed as logged in
+- Task 2:
+  - Implement offline-online task submission
 
 ## Test
 N/A
