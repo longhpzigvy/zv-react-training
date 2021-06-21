@@ -29,3 +29,9 @@ export function showCompleted(toggleStatus) {
         data: { toggleStatus: toggleStatus },
     };
 }
+export function searchTodo(searchTerm) {
+    return {
+        type: ACTION_NAMES.SEARCH_TODO,
+        data: { searchTerm: searchTerm },
+    };
+}

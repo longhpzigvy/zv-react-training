@@ -1,6 +1,5 @@
 import { takeEvery, put, call } from "redux-saga/effects";
 import axios from "axios";
-import { SAGA_NAMES } from "./SagaNames";
 import { ACTION_NAMES } from "../action/ActionName";
 import { BASE_URL } from "../../utils/Config";
 function* getTodoList() {
@@ -9,7 +8,7 @@ function* getTodoList() {
         const { data } = result;
 
         yield put({
-            type: SAGA_NAMES.SAGA_GET_LIST_TODO_SUCCESS,
+            type: "SAGA_GET_LIST_TODO",
             data: { todoList: data },
         });
     } catch (err) {
@@ -28,7 +27,7 @@ function* addTodo(action) {
             completed: false,
         });
         yield put({
-            type: SAGA_NAMES.SAGA_ADD_TODO_SUCCESS,
+            type: "SAGA_ADD_TODO",
             data: { todo: addTodoResult.data },
         });
     } catch (err) {
@@ -44,7 +43,7 @@ function* deleteTodo(action) {
     try {
         yield call(axios.delete, BASE_URL + action.data.todoId);
         yield put({
-            type: SAGA_NAMES.SAGA_REMOVE_TODO_SUCCESS,
+            type: "SAGA_REMOVE_TODO",
             data: { todoId: action.data.todoId },
         });
     } catch (err) {
@@ -64,7 +63,7 @@ function* toggleTodo(action) {
             { completed: action.data.toggleStatus }
         );
         yield put({
-            type: SAGA_NAMES.SAGA_TOGGLE_TODO_SUCCESS,
+            type: "SAGA_TOGGLE_TODO",
             data: {
                 todoId: toggleResult.data.id,
                 completed: toggleResult.data.completed,

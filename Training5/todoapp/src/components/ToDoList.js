@@ -4,7 +4,6 @@ import ToDoItem from "./ToDoItem";
 import { TodoStyle } from "../styles";
 import { getAllTodoItems, showCompleted } from "../redux/action/TodoAction";
 import { getVisibleTodoItems } from "../redux/reducers/todoReducer";
-import { connect } from "react-redux";
 const ToDoList = () => {
     const dispatch = useDispatch();
     useEffect(() => {
