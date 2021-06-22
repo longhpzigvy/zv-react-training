@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import Modal from "./Modal";
+import { isNaN } from "lodash";
 
 const Task = () => {
   const [inputVal, setInputVal] = useState("");
@@ -23,7 +24,7 @@ const Task = () => {
       setIsShowing(true);
       return;
     }
-    if (Number.isNaN(+inputVal)) {
+    if (isNaN(+inputVal)) {
       setAlertMessage("Invalid input. Must be a number!!!");
       setIsShowing(true);
       return;
