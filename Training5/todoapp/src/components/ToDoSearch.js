@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { searchTodo } from "../redux/action/TodoAction";
 import { TodoStyle } from "../styles/";
@@ -14,11 +14,20 @@ const ToDoSearch = () => {
     const onSearchTerm = (searchTerm) => {
         dispatch(searchTodo(searchTerm));
     };
-    let fSearch = _.debounce(onSearchTerm, 500);
+    let fSearch;
+    useEffect(() => {
+        console.log("Hi");
+        fSearch = _.debounce(onSearchTerm, 500);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     useCallback(() => {
         fSearch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    // useCallback(() => {
+    //     fSearch();
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
     return (
         <div style={TodoStyle.todoFormWrapper}>
             <div style={TodoStyle.todoInputWraper}>

@@ -16,8 +16,14 @@ const ToDoList = () => {
     const todoList = useSelector(getVisibleTodoItems, (state) => {
         return state.todoList;
     });
-    const completedToggle = useSelector((state) => {
-        return state.completedToggle;
+    // const [todoList, completedToggle, searchTerm] = useSelector(
+    //     getVisibleTodoItems,
+    //     (state) => {
+    //         return [state.todoList, state.completedToggle, state.searchTerm];
+    //     }
+    // );
+    const [completedToggle] = useSelector(getVisibleTodoItems, (state) => {
+        return [state.completedToggle];
     });
     return (
         <>
@@ -57,7 +63,6 @@ const ToDoList = () => {
                             Todo List
                         </p>
                     </div>
-
                     {todoList.length > 0 ? (
                         todoList.map((todo) => {
                             return <ToDoItem todo={todo} key={todo.id} />;
