@@ -1,8 +1,21 @@
 import { ACTION_NAMES } from "../action/ActionName";
-import { createSelector } from "reselect";
 import initialState from "../state/state";
 
 const TodoReducer = (state = initialState, action) => {
+    const getVisibleTodoItems = () => {
+        switch (state.completedToggle) {
+            case false:
+                return state.todoList.filter((t) =>
+                    t.name.includes(state.searchTerm)
+                );
+            case true:
+                return state.todoList
+                    .filter((t) => t.name.includes(state.searchTerm))
+                    .filter((t) => t.completed);
+            default:
+                break;
+        }
+    };
     switch (action.type) {
         case "SAGA_GET_LIST_TODO":
             state = {
@@ -59,28 +72,10 @@ const TodoReducer = (state = initialState, action) => {
         default:
             break;
     }
+    state = {
+        ...state,
+        visibleTodoItems: getVisibleTodoItems(),
+    };
     return state;
 };
-const getTodoList = (state) => state.todoList;
-
-const getCompletedToggle = (state) => state.completedToggle;
-
-const getSearchTerm = (state) => state.searchTerm;
-
-export const getVisibleTodoItems = createSelector(
-    [getTodoList, getCompletedToggle, getSearchTerm],
-    (todoList, completedToggle, searchTerm) => {
-        switch (completedToggle) {
-            case false:
-                return todoList.filter((t) => t.name.includes(searchTerm));
-            case true:
-                return todoList
-                    .filter((t) => t.name.includes(searchTerm))
-                    .filter((t) => t.completed);
-            default:
-                break;
-        }
-    }
-);
-
 export default TodoReducer;

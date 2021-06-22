@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import ToDoItem from "./ToDoItem";
 import { TodoStyle } from "../styles";
 import { getAllTodoItems, showCompleted } from "../redux/action/TodoAction";
-import { getVisibleTodoItems } from "../redux/reducers/todoReducer";
+// import { getVisibleTodoItems } from "../redux/reducers/todoReducer";
 const ToDoList = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -13,17 +13,8 @@ const ToDoList = () => {
     const onCompleteChecked = (e) => {
         dispatch(showCompleted(e.target.checked));
     };
-    const todoList = useSelector(getVisibleTodoItems, (state) => {
-        return state.todoList;
-    });
-    // const [todoList, completedToggle, searchTerm] = useSelector(
-    //     getVisibleTodoItems,
-    //     (state) => {
-    //         return [state.todoList, state.completedToggle, state.searchTerm];
-    //     }
-    // );
-    const [completedToggle] = useSelector(getVisibleTodoItems, (state) => {
-        return [state.completedToggle];
+    const [todoList, completedToggle] = useSelector((state) => {
+        return [state.visibleTodoItems, state.completedToggle];
     });
     return (
         <>
@@ -75,11 +66,4 @@ const ToDoList = () => {
         </>
     );
 };
-// function mapStateToProps(state) {
-//     return {
-//         todoList: getVisibleTodos(state),
-//         completedToggle: state.Todoreducer.completedToggle
-//     };
-// }
-
 export default ToDoList;

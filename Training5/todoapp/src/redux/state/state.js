@@ -1,5 +1,6 @@
 const initialState = {
     todoList: [],
+    visibleTodoItems: [],
     completedToggle: false,
     searchTerm: "",
 };
