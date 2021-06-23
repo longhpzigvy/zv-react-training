@@ -16,7 +16,6 @@ const ToDoSearch = () => {
     };
     let fSearch;
     useEffect(() => {
-        console.log("Hi");
         fSearch = _.debounce(onSearchTerm, 500);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
