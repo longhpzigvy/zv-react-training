@@ -15,11 +15,16 @@ export const createTaskAction = (payload) => {
 };
 
 export const changeTaskStatusAction = (payload) => {
+  const status = {
+    Draft: "Ready",
+    Error: "Ready",
+  };
+
   return {
-    type: types.CHANGE_TASK_STATUS_REQUEST,
+    type: types.CHANGE_TASK_STATUS,
     payload: {
       ...payload,
-      status: payload.status,
+      status: status[payload.status],
     },
   };
 };

@@ -10,11 +10,14 @@ function App() {
   const tasks = useSelector((state) => state.task.list);
 
   useEffect(() => {
-    dispatch(getTasksAction());
+    dispatch({ type: "NETWORK_CHANGE_ONLINE" });
   }, [dispatch]);
 
   return (
     <div className="App" style={{ width: "40%" }}>
+      <button onClick={() => dispatch(getTasksAction())}>
+        {tasks ? "Refresh Tasks" : "Get Tasks"}
+      </button>
       {tasks &&
         tasks.map((task) => {
           return (

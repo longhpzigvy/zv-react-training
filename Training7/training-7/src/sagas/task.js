@@ -1,11 +1,12 @@
 import { eventChannel } from "redux-saga";
-import { call, put, take, delay } from "redux-saga/effects";
-import { getTasks, createTask, changeTaskStatus } from "../services";
+import { call, put, take, select, delay, all } from "redux-saga/effects";
+import { getTasks, createTask } from "../services";
 import * as types from "../actions/types";
+import * as selectors from "./selectors";
 
-export function* getTasksSaga(payload) {
+export function* getTasksSaga() {
   try {
-    const res = yield call(getTasks, payload);
+    const res = yield call(getTasks);
     yield put({ type: types.GET_TASKS_SUCCESS, payload: res.data });
   } catch (error) {
     yield put({ type: types.GET_TASKS_FAILURE, payload: error });
@@ -21,12 +22,62 @@ export function* createTaskSaga(payload) {
   }
 }
 
-export function* changeTaskStatusSaga(action) {
-  const channel = eventChannel((listener) => {
-    const handleConnectivityChange = (isConnected) => {
-      listener(isConnected);
-    };
+export function* submitReadyTasks() {
+  yield take("NETWORK_CHANGE_ONLINE");
+  const tasks = yield select(selectors.getTasks);
+  const readyTasks = tasks.filter((task) => task.status === "Ready");
+  const actions = yield readyTasks.map((task) => {
+    return put({
+      type: types.CHANGE_TASK_STATUS,
+      payload: { id: task.id, status: "Submitting" },
+    });
+  });
+  yield all(actions);
+}
 
+export function* checkNetworkAndSubmit() {
+  if (navigator.onLine) {
+    yield call(submitReadyTasks);
+  }
+}
+
+export function* handleChangeStatus(action) {
+  yield delay(2000);
+  if (action.payload.status === "Submitting") {
+    yield call(submitTask, action);
+    return;
+  }
+  if (action.payload.status === "Ready") {
+    if (navigator.onLine) {
+      yield put({
+        type: types.CHANGE_TASK_STATUS,
+        payload: { id: action.payload.id, status: "Submitting" },
+      });
+    }
+  }
+}
+
+function* submitTask(action) {
+  try {
+    const status = ["Error", "Success"][
+      Math.floor(Math.random() * ["Error", "Success"].length)
+    ];
+    yield put({
+      type: types.CHANGE_TASK_STATUS,
+      payload: { id: action.payload.id, status: status },
+    });
+  } catch (error) {
+    yield put({ type: types.CHANGE_TASK_STATUS, payload: error });
+  }
+}
+
+export function* initEvenChannelForNetwork(action) {
+  const channel = eventChannel((emit) => {
+    const handleConnectivityChange = (isConnected) => {
+      if (isConnected) {
+        emit(isConnected);
+      }
+    };
     navigator.connection.addEventListener("change", handleConnectivityChange);
     return () =>
       navigator.connection.removeEventListener(
@@ -34,26 +85,8 @@ export function* changeTaskStatusSaga(action) {
         handleConnectivityChange
       );
   });
-
-  let status = action.payload.status;
-
-  try {
-    while (true) {
-      if (status === "Ready" && !navigator.onLine) {
-        yield take(channel);
-      }
-      yield delay(2000);
-      const res = yield call(changeTaskStatus, {
-        payload: { id: action.payload.id, status: status },
-      });
-      yield put({
-        type: types.CHANGE_TASK_STATUS_SUCCESS,
-        payload: res.data,
-      });
-      status = res.data.status;
-      if (status === "Success" || status === "Error") break;
-    }
-  } catch (e) {
-    console.log(e);
+  while (true) {
+    yield take(channel);
+    yield put({ type: "NETWORK_CHANGE_ONLINE" });
   }
 }

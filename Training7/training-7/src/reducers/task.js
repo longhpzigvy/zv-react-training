@@ -45,7 +45,7 @@ export function task(state = initialState, action) {
         error: action.payload,
       };
 
-    case types.CHANGE_TASK_STATUS_REQUEST:
+    case types.CHANGE_TASK_STATUS:
       return {
         ...state,
         list: state.list.map((task) => {
@@ -57,24 +57,6 @@ export function task(state = initialState, action) {
           }
           return task;
         }),
-      };
-    case types.CHANGE_TASK_STATUS_SUCCESS:
-      return {
-        ...state,
-        list: state.list.map((task) => {
-          if (task.id === action.payload.id) {
-            return {
-              ...task,
-              status: action.payload.status,
-            };
-          }
-          return task;
-        }),
-      };
-    case types.CHANGE_TASK_STATUS_FAILURE:
-      return {
-        ...state,
-        error: action.payload,
       };
 
     default:
