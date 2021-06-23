@@ -4,15 +4,14 @@ import { withRouter, Redirect } from "react-router-dom";
 const SubContent = (props) => {
   const users = useSelector((state) => state.user.users);
   const paramId = props.location.pathname.split("/").pop();
-
-  const user = users.filter((user) => user.id === paramId);
+  const user = users.find((user) => user.id === paramId);
 
   return (
     <>
-      {user.length > 0 ? (
+      {user ? (
         <div style={{ textAlign: "right" }}>
-          <p>{user[0].fullName}</p>
-          <p>{user[0].email}</p>
+          <p>{user.fullName}</p>
+          <p>{user.email}</p>
         </div>
       ) : (
         <Redirect to="/app/users" />

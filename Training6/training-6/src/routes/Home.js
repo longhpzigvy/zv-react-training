@@ -3,6 +3,7 @@ import MainContent from "../components/MainContent";
 import MyLayout from "../hoc/MyLayout";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import UserDetail from "../components/UserDetail";
 
 const Home = (props) => {
   const authentication = useSelector((state) => state.authentication);
@@ -15,17 +16,8 @@ const Home = (props) => {
     <MyLayout>
       <Switch>
         <Route path="/app/users" component={MainContent} />
-        <Route exact path="/app/myinfo" component={MainContent} />
-        <Route
-          path="/app/*"
-          render={() => {
-            return authentication.user ? (
-              <Redirect to="/app" />
-            ) : (
-              <Redirect to="/login" />
-            );
-          }}
-        />
+        <Route exact path="/app/myinfo" component={UserDetail} />
+        <Redirect to={authentication.user ? "/app" : "/login"} />
       </Switch>
     </MyLayout>
   );

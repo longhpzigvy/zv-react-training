@@ -1,5 +1,7 @@
 import axios from "axios";
 import { store } from "../store";
+import history from "../history";
+import { notification } from "antd";
 
 const instance = axios.create({
   baseURL: "http://localhost:9000",
@@ -17,6 +19,11 @@ instance.interceptors.response.use(
     return response;
   },
   function (error) {
+    history.push("/app");
+    notification.open({
+      message: "401",
+      description: "You don't have permission to do this.",
+    });
     return error.response.status;
   }
 );

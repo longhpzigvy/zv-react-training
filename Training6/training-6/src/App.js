@@ -9,13 +9,7 @@ const App = () => {
     <Switch>
       <Route path="/app" component={Home} />
       <Route exact path="/login" component={Login} />
-      <Route
-        exact
-        path="*"
-        render={() => {
-          return user ? <Redirect to="/app" /> : <Redirect to="/login" />;
-        }}
-      />
+      <Redirect to={user ? "/app" : "/login"} />
     </Switch>
   );
 };
