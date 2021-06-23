@@ -19,12 +19,14 @@ instance.interceptors.response.use(
     return response;
   },
   function (error) {
-    history.push("/app");
-    notification.open({
-      message: "401",
-      description: "You don't have permission to do this.",
-    });
-    return error.response.status;
+    if (error.response.status === 401) {
+      history.push("/app");
+      notification.open({
+        message: "401",
+        description: "You don't have permission to do this.",
+      });
+    }
+    return Promise.reject(error);
   }
 );
 
