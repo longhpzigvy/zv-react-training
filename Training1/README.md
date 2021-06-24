@@ -10,6 +10,7 @@
   - Component
   - PureComponent
   - Stateless Component (or Functional Component)
+  - Stateless Component with wrapped by React.memo 
 - Re-using React components
 - Folder structure of a React project
 

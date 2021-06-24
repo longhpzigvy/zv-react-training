@@ -1,0 +1,21 @@
+.modal{
+    background: lightgray;
+    width: 200px;
+    margin-left: 50px;
+    margin-top: 20px;
+}
+.modal-header, .modal-footer{
+    height: 20px;
+}
+.modal-header button{
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.modal-body{
+    height: 100px;
+}
+.modal-body p{
+    margin: 50px;
+}
