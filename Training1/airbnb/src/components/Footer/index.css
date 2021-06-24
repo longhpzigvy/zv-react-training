@@ -1,0 +1,41 @@
+.footer{
+    background:lightgray;
+    margin-top: 10px;
+}
+.above,.under{
+    display: flex;
+}
+.above div{
+    margin-top: 50px;
+}
+.info{
+    margin-left: 50px;
+    width: 600px;
+}
+.info h1{
+    font-size:14px
+}
+.under li,p,img{
+    display:inline-block;
+    margin-right:10px;
+    margin-top: 5px;
+}
+.under img{
+    width: 15px;
+    height: 15px
+
+}
+.under-left{
+    margin: 0 590px 0 50px;
+}
+
+.under{
+    margin-top: 5px;
+}
+
+.br-line{
+    background:gray;
+    width:1200px;
+    height:2px;
+    margin: 50px 50px 10px 70px;
+}

@@ -1,0 +1,20 @@
+.views {
+  margin-left: 50px;
+}
+
+.views h1 {
+  font-size: 40px;
+}
+
+.views div {
+  width: 400px;
+}
+
+.views button {
+    width:250px;
+    height: 40px;
+    background: black;
+    color: white;
+    font-weight:bold;
+    border-radius: 10px;
+}

@@ -1,0 +1,21 @@
+.location {
+  margin-left: 50px;
+}
+.location div {
+  display: inline-block;
+}
+
+.cities div {
+  display: grid;
+}
+.cities{
+  width:300px
+}
+.cities h1{
+  font-size: 15px
+}
+.cities  img{
+  height: 60px;
+  border-radius: 10px;
+  float: left
+}
