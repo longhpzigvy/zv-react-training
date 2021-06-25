@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 const NEXT_MANUALLY_STATUS = {
     draft: "ready",
     error: "ready",
