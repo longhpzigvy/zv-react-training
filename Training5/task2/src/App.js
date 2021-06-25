@@ -1,13 +1,11 @@
-import React from 'react';
-import RouterPage from './features/Router/index'
-// import LoginPage from './features/Components/login/LoginPage'
+import RoutePage from './Route';
 import 'antd/dist/antd.css';
+
 
 function App() {
   return (
     <div className="App">
-      <RouterPage />
-      
+      <RoutePage />
     </div>
   );
 }
