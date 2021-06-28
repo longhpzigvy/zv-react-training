@@ -7,7 +7,7 @@ import BasicLayout from '../../layout';
 const { Content, Sider } = Layout
 
 const selectUsers = state => state.users.users
-const UserPage = ({ children }) => {
+const UserPage = ({children}) => {
     const users = useSelector(selectUsers)
 
     if (!users) {
@@ -33,7 +33,7 @@ const UserPage = ({ children }) => {
                                 ))}
                             </Menu>
                         </Sider>
-                        <Content style={{ padding: '0 24px', minHeight: 280, background: 'white' }}>
+                        <Content style={{ padding: '0 24px', minHeight: 280 }}>
                             {children}
                         </Content>
                     </Layout>

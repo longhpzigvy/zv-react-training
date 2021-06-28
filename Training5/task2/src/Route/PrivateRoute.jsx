@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 const PrivateRoute = ({ children, ...rest }) => {
-    const user = useSelector(state => state.auth)
+    const user = useSelector(state => state.authorization)
     const token = user.token
 
     return (

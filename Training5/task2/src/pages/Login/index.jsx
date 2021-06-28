@@ -2,26 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, Form, Button, Input, notification } from 'antd'
-import { fetchAuth, fetchUsers, fetchUser } from '../../redux/auth/authSlice'
+// import { getToken } from '../../redux/actionCreators/authorization';
+// import { fetchAuth, fetchUsers, fetchUser } from '../../redux/auth/authSlice'
 
 const Login = () => {
     const [user, setUser] = useState({
         email: '',
         password: ''
     })
-    const token = useSelector(state => state.auth.token)
+    const token = useSelector(state => state.authorization.token)
     const history = useHistory()
     const location = useLocation()
 
     const { from } = location.state || { from: { pathname: "/" } };
 
-    const error = useSelector(state => state.auth.error)
+    const error = useSelector(state => state.authorization.error)
 
     useEffect(() => {
         if (token) {
             history.replace(from)
-            dispatch(fetchUsers())
-            dispatch(fetchUser())
+            dispatch({type:'GET_USERS_SAGA'})
+            dispatch({type:'GET_USER_SAGA'})
         }
     }, [token])
 
@@ -30,7 +31,6 @@ const Login = () => {
             notification.open({
                 message: 'Login fail',
                 description: error,
-               
             });
         }
     }, [error])
@@ -43,8 +43,7 @@ const Login = () => {
         setUser({ ...user, password: e.target.value })
     }
     const onLogin = () => {
-        dispatch({ type: 'auth/addUser', payload: user })
-        dispatch(fetchAuth(user))
+        dispatch({ type: 'GET_TOKEN_SAGA', payload: user })
     }
 
 
