@@ -1,40 +1,52 @@
-import { createSlice, createSelector } from '@reduxjs/toolkit'
+import { createSelector } from '@reduxjs/toolkit'
 import { StatusFilters } from "../filters/filtersSlice";
 import axios from 'axios'
 
 const initialState = []
 
-const todosSlice = createSlice({
-    name: 'todos',
-    initialState,
-    reducers: {
-        todosAdded(state, action) {
-            return [...state, action.payload]
-        },
-        todosToggled(state, action) {
-            const todo = state.find(todo => todo.id === action.payload)
-            todo.completed = !todo.completed
-        },
-        todosDeleted(state, action) {
-            return state.filter(todo => todo.id !== action.payload)
-        },
-        todosSearch(state, action) {
-            return state.filter(todo => todo.name.includes(action.payload))
-        },
-        todosLoaded(state, action) {
-            return action.payload
-        },
-    }
-})
 
-export const {
-    todosAdded,
-    todosDeleted,
-    todosLoaded,
-    todosToggled,
-    todosSearch,
-} = todosSlice.actions
-export default todosSlice.reducer
+export default function todosReducer(state = initialState, action) {
+    switch (action.type) {
+        case 'todos/todosAdded': {
+            return [...state, action.payload]
+        }
+        case 'todos/todosToggled': {
+            return state.find(todo => {
+                if (todo.id === action.payload) {
+                    return { ...todo, completed: !todo.completed }
+                }
+                return todo
+            })
+        }
+        case 'todos/todosDeleted': {
+            return state.filter(todo => todo.id !== action.payload)
+        }
+        case 'todos/todosSearched': {
+            return state.filter(todo => todo.name.includes(action.payload))
+        }
+        case 'todos/todosLoaded': {
+            return action.payload
+        }
+        default:
+            return state
+    }
+}
+
+export const todosAdded = payload => {
+    return { type: 'todos/todosAdded', payload }
+}
+export const todosToggled = payload => {
+    return { type: 'todos/todosToggled', payload }
+}
+export const todosDeleted = payload => {
+    return { type: 'todos/todosDeleted', payload }
+}
+export const todosSearched = payload => {
+    return { type: 'todos/todosSearched', payload }
+}
+export const todosLoaded = payload => {
+    return { type: 'todos/todosLoaded', payload }
+}
 
 export const fetchTodos = () => async (dispatch) => {
     const response = await axios.get('http://localhost:9000/todos')
@@ -48,7 +60,7 @@ export const saveNewTodos = (text) => async (dispatch) => {
     dispatch(todosAdded(response.data))
 }
 
-export const deleteTodo = id =>async(dispatch)=>{
+export const deleteTodo = id => async (dispatch) => {
     await axios.delete(`http://localhost:9000/todos/${id}`)
     dispatch(todosDeleted(id))
 }

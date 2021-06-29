@@ -1,4 +1,3 @@
-import { createSlice } from '@reduxjs/toolkit'
 
 export const StatusFilters = {
     All: 'all',
@@ -10,16 +9,17 @@ const initialState = {
     status: StatusFilters.All
 }
 
-const filtersSlice = createSlice({
 
-    name: 'filters',
-    initialState,
-    reducers: {
-        statusFiltersChanged(state, active) {
-            return { ...state, status: active.payload }
+export default function filtersReducer(state = initialState, action) {
+    switch (action.type) {
+        case 'filters/statusFiltersChanged': {
+            return { ...state, status: action.payload }
         }
+        default:
+            return state
     }
-})
+}
 
-export const { statusFiltersChanged}= filtersSlice.actions
-export default filtersSlice.reducer
+export const statusFiltersChanged = payload => {
+    return { type: 'filters/statusFiltersChanged', payload }
+}

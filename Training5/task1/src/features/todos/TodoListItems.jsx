@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Checkbox, Button } from 'antd'
-import { selectedTodoByIds, todosDeleted, todosToggled,deleteTodo } from './todosSlice'
+import { selectedTodoByIds,todosToggled,deleteTodo } from './todosSlice'
 
 
 const TodoListItems = ({ id }) => {

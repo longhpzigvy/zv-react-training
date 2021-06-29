@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { statusFiltersChanged } from '../filters/filtersSlice'
-import { todosSearch } from '../todos/todosSlice'
+import { todosSearched } from '../todos/todosSlice'
 import StatusFilter from './StatusFilter'
 
 
@@ -15,7 +15,7 @@ const Footer = () => {
     const onKeyDown = e => {
         const trimmedText = e.target.value.trim()
         if (e.key === 'Enter' && trimmedText) {
-            dispatch(todosSearch(trimmedText))
+            dispatch(todosSearched(trimmedText))
         }
 
     }
