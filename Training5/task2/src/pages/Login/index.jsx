@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, Form, Button, Input, notification } from 'antd'
+import { getToken } from '../../redux/actionCreators/authorization';
 // import { getToken } from '../../redux/actionCreators/authorization';
 // import { fetchAuth, fetchUsers, fetchUser } from '../../redux/auth/authSlice'
 
@@ -12,17 +13,13 @@ const Login = () => {
     })
     const token = useSelector(state => state.authorization.token)
     const history = useHistory()
-    const location = useLocation()
-
-    const { from } = location.state || { from: { pathname: "/" } };
+  
 
     const error = useSelector(state => state.authorization.error)
 
     useEffect(() => {
         if (token) {
-            history.replace(from)
-            dispatch({type:'GET_USERS_SAGA'})
-            dispatch({type:'GET_USER_SAGA'})
+            history.push('/app')
         }
     }, [token])
 
@@ -43,7 +40,7 @@ const Login = () => {
         setUser({ ...user, password: e.target.value })
     }
     const onLogin = () => {
-        dispatch({ type: 'GET_TOKEN_SAGA', payload: user })
+        dispatch(getToken(user))
     }
 
 

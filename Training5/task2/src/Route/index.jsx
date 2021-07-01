@@ -16,15 +16,24 @@ const RoutePage = () => {
     return (
         <Router>
             <Switch>
-                <Route exact path="/app" component={HomePage} />
-                <Route exact path="/app/users" component={UserPage} />
-                <Route exact path="/app/my-info" component={MyInfoPage} />
-                <Route exact path="/app/users/:id" component={UserListPage} />
                 <Route exact path="/login" component={Login} />
-
                 <PrivateRoute path="/">
-                    <BasicLayout />
+                    <BasicLayout >
+                        <Switch>
+                            <PrivateRoute path="/app/my-info" component={MyInfoPage} />
+
+                            <PrivateRoute path="/app/users"  >
+                                <UserPage>
+                                    <PrivateRoute path="/app/users/:id" component={UserListPage} />
+                                </UserPage>
+                            </PrivateRoute>
+                            <PrivateRoute path="/app" component={HomePage} />
+                        </Switch>
+                    </BasicLayout>
+
                 </PrivateRoute>
+
+
             </Switch>
         </Router>
     )

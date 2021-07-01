@@ -1,12 +1,11 @@
-import { fork, call, put, take, takeLatest, all } from 'redux-saga/effects'
+import {  call, put, takeLatest } from 'redux-saga/effects'
 
-// import axios from 'axios'
-import { getToken, getTokenSuccess } from '../actionCreators/authorization'
+import { getTokenSuccess } from '../actionCreators/authorization'
+import { GET_TOKEN } from '../actionTypes/authorization'
 import { fetchLoginApi } from '../apiService/api'
 
 
 function* getTokenSaga(action) {
-    yield put(getToken())
 
     try {
         const res = yield call(fetchLoginApi, action.payload)
@@ -17,6 +16,6 @@ function* getTokenSaga(action) {
 }
 
 export default function* authorizationSaga() {
-    yield takeLatest('GET_TOKEN_SAGA', getTokenSaga)
+    yield takeLatest(GET_TOKEN, getTokenSaga)
 }
 

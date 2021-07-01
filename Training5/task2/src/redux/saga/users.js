@@ -1,16 +1,14 @@
-import { fork, call, put, take, takeLatest, all } from 'redux-saga/effects'
-import { 
-    getUsers, 
-    getUsersSuccess, 
-    getUsersError ,
-    getUser,
+import { call, put, takeLatest } from 'redux-saga/effects'
+import {
+    getUsersSuccess,
+    getUsersError,
     getUserSuccess,
     getUserError
 } from '../actionCreators/users'
-import { fetchUsers,fetchUser } from '../apiService/api'
+import { GET_USER, GET_USERS } from '../actionTypes/users'
+import { fetchUsers, fetchUser } from '../apiService/api'
 
 function* getUsersSaga() {
-    yield put(getUsers())
 
     try {
         const res = yield call(fetchUsers)
@@ -20,11 +18,10 @@ function* getUsersSaga() {
     }
 }
 
-function* getUserSaga(){
-    yield put(getUser())
+function* getUserSaga() {
 
     try {
-        const res =yield call(fetchUser)
+        const res = yield call(fetchUser)
         yield put(getUserSuccess(res.data))
     } catch (error) {
         yield put(getUserError(error))
@@ -32,7 +29,7 @@ function* getUserSaga(){
 }
 
 export default function* userSaga() {
-    yield takeLatest('GET_USERS_SAGA', getUsersSaga)
-    yield takeLatest('GET_USER_SAGA', getUserSaga)
+    yield takeLatest(GET_USERS, getUsersSaga)
+    yield takeLatest(GET_USER, getUserSaga)
 
 }

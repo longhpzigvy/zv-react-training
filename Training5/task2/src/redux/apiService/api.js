@@ -1,35 +1,32 @@
 import axios from "axios"
 import store from '../store'
 
-const API_ROOT = 'http://localhost:9000'
+const API_ROOT = 'http://localhost:9000/api'
 
-const instance = axios.create({
-    baseURL: API_ROOT,
-    headers: {
-        'Content-Type': 'application/json'
-    }
-})
+
 
 export const fetchLoginApi = async (payload) => {
-    return await instance.post('/login', payload)
+    return await instance.post('http://localhost:9000/login', payload)
 }
 
-export const fetchUsers = async () => {
+const instance = axios.create({
+    baseURL: API_ROOT
+})
+
+instance.interceptors.request.use((config) => {
     const token = store.getState().authorization.token
 
-    return await instance.get('/api/users', {
-        headers: {
-            'Authorization': 'Bearer ' + token
-        }
-    })
+    config.headers.Authorization = 'Bearer ' + token
+    return config
+
+}, (err) => { return Promise.reject(err) })
+
+export const fetchUsers = async () => {
+
+    return await instance.get('/users')
 }
 
 export const fetchUser = async () => {
-    const token = store.getState().authorization.token
 
-    return await instance.get('/api/users/my', {
-        headers: {
-            'Authorization': 'Bearer ' + token
-        }
-    })
+    return await instance.get('/users/my')
 }

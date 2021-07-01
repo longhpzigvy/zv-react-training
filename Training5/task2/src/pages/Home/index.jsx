@@ -3,9 +3,7 @@ import BasicLayout from '../../layout'
 
 const HomePage =()=>{
     return(
-        <BasicLayout>
-            <h5>Welcome Home</h5>
-        </BasicLayout>
+            <h3>Welcome Home</h3>
     )
 }
 
