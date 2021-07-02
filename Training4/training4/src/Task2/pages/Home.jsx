@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import WorldList from "../components/WorldList";
 import { throttle } from "lodash";
 import { debounce } from "lodash";
@@ -21,6 +20,9 @@ function Home(props) {
         console.log("fail to fetch world data", error);
       }
     })();
+    return () => {
+      debouncedChangeHandler.cancel();
+    }
   }, []);
 
   const handleChangeSearch = (e) => {
@@ -32,10 +34,14 @@ function Home(props) {
     setDataSearch(value.trim());
   };
 
-  const handleInputDebounced = debounce(handleChangeSearch, 1000);
-//   const handleInputThrottled = throttle(handleChangeSearch, 1000);
 
+  const debouncedChangeHandler = useCallback(
+    debounce(handleChangeSearch, 300)
+  , []);
 
+  // const throttledChangeHandler = useMemo(
+  //   () => throttle(handleChangeSearch, 300)
+  // , []);
 
   const renderDataWorld = () => {
     let result = null;
@@ -65,7 +71,7 @@ function Home(props) {
         type="text"
         name=""
         id="txtSearch"
-        onChange={handleInputDebounced}
+        onChange={debouncedChangeHandler}
         style={{ width: "300px", marginBottom: "30px" }}
       />
 
