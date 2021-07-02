@@ -6,7 +6,7 @@ class Home extends Component {
     super();
     this.state = {
       show: false,
-      value: '',
+      value: "",
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
@@ -47,20 +47,16 @@ class Home extends Component {
     return true;
   }
 
-  
   handleInput = (e) => {
     const { value } = e.target;
     e.preventDefault();
-    this.setState({value});
-    console.log('value', this.state.value)
-   
+    this.setState({ value });
+    console.log("value", this.state.value);
   };
 
-  componentDidUpdate(){
-   
-    console.log('componentdidupdate')
-     document.getElementById("input-id").innerHTML =`${this.state.value}`;
-   
+  componentDidUpdate() {
+    console.log("componentdidupdate");
+    document.getElementById("input-id").innerHTML = `${this.state.value}`;
   }
 
   render() {
@@ -70,12 +66,16 @@ class Home extends Component {
           Open Modal
         </button>
         <p>Text received from Modal</p>
-        <p  id="input-id" style={{ margin: "2rem" }}></p>
-      
-        <Modal show={this.state.show} handleClose={this.hideModal} handleInput={this.handleInput} >
+        <p id="input-id" style={{ margin: "2rem" }}></p>
+
+        <Modal
+          show={this.state.show}
+          handleClose={this.hideModal}
+          handleInput={this.handleInput}
+        >
           <p>This is Modal</p>
           <p id="idBtnEvent"> </p>
-          
+
           <p id="idInputEvent"></p>
         </Modal>
       </div>

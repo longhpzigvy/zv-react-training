@@ -17,8 +17,8 @@ class Modal extends Component {
       >
         <section className="modal-main">
           {this.props.children}
-          <br />
-          <input id="idInput" onChange={this.props.handleInput}  />
+         
+          <input id="idInput"/>
           <button type="button" onClick={this.props.handleClose}>
             Close
           </button>

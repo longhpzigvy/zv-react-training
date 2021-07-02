@@ -1,11 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
-import Home from './Home'
+import Home from './Home/Home.jsx';
+import HomeFuntional from './Home/HomeFuntional.jsx';
+
 function App() {
   return (
     <>
     
-      <Home/>
+      {/* <Home/> */}
+
+      <HomeFuntional/>
 
      </>
   );
