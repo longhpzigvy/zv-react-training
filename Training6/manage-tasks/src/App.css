@@ -1,0 +1,38 @@
+.header-page{
+  margin: 10px; 
+  display: flex
+}
+.header-page-right{
+  width: 50%; 
+  text-align: left;
+  margin-left:5px
+}
+.header-page-left{
+  width: 43%;
+  text-align: right
+}
+.list-item{
+  margin: 10px;
+}
+.list-item button{
+  float: right;
+}
+.input-page{
+  margin: 50px 0 0 20px;
+}
+.input-page Input{
+  width: 296px;
+  text-align: center;
+}
+.list-task-page{
+  margin-left: 500px;
+  width: 460;
+}
+.network-status{
+  text-align: right;
+  width: 384px;
+}
+.content-page Card{
+  margin: 10px 20px;
+  width: 370px
+}
