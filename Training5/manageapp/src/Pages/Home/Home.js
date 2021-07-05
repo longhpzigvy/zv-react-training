@@ -36,9 +36,15 @@ export default function Home() {
             >
                 <Sidebar />
                 <Switch>
-                    <Route exact path="/home" component={DashBoard}></Route>
-                    <Route path="/home/profile" component={Profile}></Route>
-                    <Route path="/home/users" component={Users}></Route>
+                    <Route exact path="/home">
+                        <DashBoard />
+                    </Route>
+                    <Route path="/home/profile">
+                        <Profile />
+                    </Route>
+                    <Route path="/home/users">
+                        <Users />
+                    </Route>
                 </Switch>
             </div>
             <Footer />
