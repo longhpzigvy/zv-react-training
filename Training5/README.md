@@ -56,6 +56,7 @@ Task 2:
   - If the user have not logged -> `/app/*` -> redirect to `/login`
   - If the user go to the url path which != `/login` or != `/app/*` then check user logged or not, logged redirect to `/app`, not logged redirect to `/login`
   - Whenever call to backend API and get the 403 status, we should add notification "You have not permission to do it" and redirect to `/app` (You can login with User role andcall **GET** `/users` to get this status)
+  - If user go to `/app/users/:id` by enter url into browser address and the id is invalid, add notification "User is not found" and redirect to "/app/users"
   - Nice to use redux saga in task
   - Reducer, actions must be designed well
 
