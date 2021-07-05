@@ -1,0 +1,29 @@
+.modal {
+  background: white;
+  width: 500px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px grey;
+  position: fixed;
+  top: 20px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: auto;
+  z-index: 1;
+}
+
+.modal-header {
+  height: 20px;
+  border-bottom: 1px solid lightgray;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 5px;
+}
+.modal-header button {
+  float: right;
+  background: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
