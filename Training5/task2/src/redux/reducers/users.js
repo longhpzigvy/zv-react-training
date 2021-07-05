@@ -12,7 +12,8 @@ export default (preState = {}, action) => {
             return {
                 ...preState,
                 isFetching: false,
-                users: action.payload
+                users: action.payload.users ? action.payload.users : null,
+                error: action.payload.error ? action.payload.error : null
             }
         }
         case actionTypes.GET_USER: {
@@ -25,14 +26,8 @@ export default (preState = {}, action) => {
             return {
                 ...preState,
                 isFetching: false,
-                user: action.payload
-            }
-        }
-        case actionTypes.ERROR: {
-            return {
-                ...preState,
-                isFetching: false,
-                error: action.payload
+                user: action.payload ? action.payload : null,
+                error: action.payload.error ? action.payload.error : null
             }
         }
         default:

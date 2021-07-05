@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
-import { Layout, Menu } from 'antd'
+import { Layout, Menu, notification } from 'antd'
 import { getUsers } from '../../redux/actionCreators/users';
 
 const { Content, Sider } = Layout
@@ -9,19 +9,29 @@ const selectUsers = state => state.users.users
 
 const UserPage = ({ children }) => {
     const dispatch = useDispatch()
+    const history = useHistory()
 
     useEffect(() => {
         dispatch(getUsers())
     }, [])
     const users = useSelector(selectUsers)
     const error = useSelector(state => state.users.error)
+    
+    useEffect(() => {
+        if (error) {
+            notification.open({
+                message: 'Permission fail',
+                description: error,
+            });
+            history.push('/app')
+        }
 
-    if (error && error.response.status === 401) {
-        return <h4>{error.response.data.error}</h4>
-    }
+    }, [error])
+
     if (!users) {
         return (<h3>Users Page</h3>)
     }
+
     const otherUser = users.filter(user => user.role !== 'Admin')
     return (
         <Layout>

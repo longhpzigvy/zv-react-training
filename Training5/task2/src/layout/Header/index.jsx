@@ -1,17 +1,24 @@
 import React from 'react';
 import { Layout, Avatar, Image, Dropdown, Menu, Button } from 'antd'
 import { DownOutlined } from '@ant-design/icons';
+import { useDispatch } from 'react-redux'
+import { getTokenSuccess } from '../../redux/actionCreators/authorization';
 
 const { Header } = Layout
 
 const HeaderPage = () => {
+    const dispatch = useDispatch()
+    const onClick = () => {
+        dispatch(getTokenSuccess({ token: '' }))
+    }
+
     const menu = (
         <Menu>
             <Menu.Item key='0'>
                 <a href='/app/my-info'>Profile</a>
             </Menu.Item>
             <Menu.Item>
-                <Button>Log Out</Button>
+                <Button onClick={onClick}>Log Out</Button>
             </Menu.Item>
         </Menu>
     )

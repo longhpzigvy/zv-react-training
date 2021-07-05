@@ -12,7 +12,6 @@ const MyInfoPage = () => {
         dispatch(getUser())
     }, [])
     const user = useSelector(state => state.users.user)
-
     if (user) {
         const { fullName, email, password, id, role } = user
 
@@ -21,6 +20,7 @@ const MyInfoPage = () => {
         )
 
     }
+    return <h3>My Info page</h3>
 }
 
 export default MyInfoPage

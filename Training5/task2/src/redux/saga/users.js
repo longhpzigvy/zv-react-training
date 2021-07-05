@@ -1,9 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import {
     getUsersSuccess,
-    getUsersError,
     getUserSuccess,
-    getUserError
 } from '../actionCreators/users'
 import { GET_USER, GET_USERS } from '../actionTypes/users'
 import { fetchUsers, fetchUser } from '../apiService/api'
@@ -12,9 +10,9 @@ function* getUsersSaga() {
 
     try {
         const res = yield call(fetchUsers)
-        yield put(getUsersSuccess(res.data.users))
+        yield put(getUsersSuccess(res.data))
     } catch (error) {
-        yield put(getUsersError(error))
+        console.log('error :>> ', error);
     }
 }
 
@@ -24,7 +22,7 @@ function* getUserSaga() {
         const res = yield call(fetchUser)
         yield put(getUserSuccess(res.data))
     } catch (error) {
-        yield put(getUserError(error))
+        console.log('error :>> ', error);
     }
 }
 

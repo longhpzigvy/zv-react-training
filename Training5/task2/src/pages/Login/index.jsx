@@ -3,8 +3,6 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, Form, Button, Input, notification } from 'antd'
 import { getToken } from '../../redux/actionCreators/authorization';
-// import { getToken } from '../../redux/actionCreators/authorization';
-// import { fetchAuth, fetchUsers, fetchUser } from '../../redux/auth/authSlice'
 
 const Login = () => {
     const [user, setUser] = useState({

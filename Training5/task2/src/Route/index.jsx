@@ -3,6 +3,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
+    Redirect
 } from "react-router-dom";
 import BasicLayout from "../layout";
 import PrivateRoute from "./PrivateRoute";
@@ -20,20 +21,20 @@ const RoutePage = () => {
                 <PrivateRoute path="/">
                     <BasicLayout >
                         <Switch>
-                            <PrivateRoute path="/app/my-info" component={MyInfoPage} />
-
-                            <PrivateRoute path="/app/users"  >
+                            <Route exact path="/app" component={HomePage} />
+                            <Route path="/app/users"  >
                                 <UserPage>
-                                    <PrivateRoute path="/app/users/:id" component={UserListPage} />
+                                    <Switch>
+                                        <Route path="/app/users/:id" component={UserListPage} />
+                                        <Redirect to='/app/users' />
+                                    </Switch>
                                 </UserPage>
-                            </PrivateRoute>
-                            <PrivateRoute path="/app" component={HomePage} />
+                            </Route>
+                            <Route exact path="/app/my-info" component={MyInfoPage} />
+                            <Redirect to='/app' />
                         </Switch>
                     </BasicLayout>
-
                 </PrivateRoute>
-
-
             </Switch>
         </Router>
     )
