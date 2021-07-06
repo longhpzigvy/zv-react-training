@@ -10,6 +10,7 @@ import rootSaga from './saga'
 const persistConfig = {
     key: 'root',
     storage,
+    whitelist: ['authorization']
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -20,4 +21,4 @@ const store = createStore(persistedReducer,
 const persistor = persistStore(store)
 sagaMiddleware.run(rootSaga)
 
-export {store, persistor}
+export { store, persistor }

@@ -1,17 +1,25 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import BasicLayout from '../../layout'
+import {
+    LoadingOutlined,
+  } from '@ant-design/icons';
 import DetailPage from '../../layout/UserDetail';
 import { getUser } from '../../redux/actionCreators/users';
 
 
 const MyInfoPage = () => {
     const dispatch = useDispatch()
+    const user = useSelector(state => state.users.user)
 
     useEffect(() => {
         dispatch(getUser())
     }, [])
-    const user = useSelector(state => state.users.user)
+    const isFetching = useSelector(state => state.users.isFetching)
+    if (isFetching) {
+        return <h4>Data Loading...<LoadingOutlined /></h4>
+    }
+
+
     if (user) {
         const { fullName, email, password, id, role } = user
 

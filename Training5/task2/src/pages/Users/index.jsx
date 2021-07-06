@@ -1,6 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
+import {
+    LoadingOutlined,
+  } from '@ant-design/icons';
+
 import { Layout, Menu, notification } from 'antd'
 import { getUsers } from '../../redux/actionCreators/users';
 
@@ -8,6 +12,7 @@ const { Content, Sider } = Layout
 const selectUsers = state => state.users.users
 
 const UserPage = ({ children }) => {
+    const [others, setOther] = useState([])
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -15,8 +20,11 @@ const UserPage = ({ children }) => {
         dispatch(getUsers())
     }, [])
     const users = useSelector(selectUsers)
+    // const { users, isFetching } = usersState
     const error = useSelector(state => state.users.error)
-    
+    const isFetching = useSelector(state => state.users.isFetching)
+
+
     useEffect(() => {
         if (error) {
             notification.open({
@@ -25,14 +33,18 @@ const UserPage = ({ children }) => {
             });
             history.push('/app')
         }
+        if (users) {
+            const newUser = users.filter(user => user.role !== 'Admin')
+            setOther([...newUser])
+        }
 
-    }, [error])
-
-    if (!users) {
-        return (<h3>Users Page</h3>)
+    }, [error, users])
+    if (isFetching) {
+        return <h4>Data Loading...<LoadingOutlined /></h4>
     }
 
-    const otherUser = users.filter(user => user.role !== 'Admin')
+
+
     return (
         <Layout>
             <Content >
@@ -41,7 +53,7 @@ const UserPage = ({ children }) => {
                         <Menu
                             style={{ height: '100%' }}
                         >
-                            {otherUser.map(({ id, fullName }) => (
+                            {others.map(({ id, fullName }) => (
                                 <Menu.Item key={id}>
                                     <Link to={`/app/users/${id}`}>{fullName}</Link>
                                 </Menu.Item>
