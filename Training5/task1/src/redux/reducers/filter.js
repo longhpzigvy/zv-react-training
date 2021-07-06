@@ -1,4 +1,3 @@
-
 export const StatusFilters = {
     All: 'all',
     Active: 'active',
@@ -6,7 +5,7 @@ export const StatusFilters = {
 }
 
 const initialState = {
-    status: StatusFilters.All
+    status: StatusFilters.All,
 }
 
 
@@ -15,6 +14,9 @@ export default function filtersReducer(state = initialState, action) {
         case 'filters/statusFiltersChanged': {
             return { ...state, status: action.payload }
         }
+        case 'filters/searchFilterChanged': {
+            return { ...state, name: action.payload }
+        }
         default:
             return state
     }
@@ -22,4 +24,8 @@ export default function filtersReducer(state = initialState, action) {
 
 export const statusFiltersChanged = payload => {
     return { type: 'filters/statusFiltersChanged', payload }
+}
+
+export const searchFilterChanged = payload => {
+    return { type: 'filters/searchFilterChanged', payload }
 }

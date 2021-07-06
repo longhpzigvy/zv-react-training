@@ -1,6 +1,6 @@
 import React from 'react'
-import { StatusFilters } from '../filters/filtersSlice'
 import { Button, List } from 'antd'
+import { StatusFilters } from '../../../redux/reducers/filter'
 
 const StatusFilter = ({ value: status, onChange }) => {
     const renderedFilters = Object.keys(StatusFilters).map((key) => {
@@ -9,19 +9,15 @@ const StatusFilter = ({ value: status, onChange }) => {
         const className = value === status ? 'selected' : ''
 
         return (
-            <List key={value}>
-                <List.Item>
-                    <Button className={className} onClick={handleClick}>
-                        {key}
-                    </Button>
-                </List.Item>
-            </List>
+            <Button type='text' className={className} onClick={handleClick}>
+                {key}
+            </Button>
         )
     })
-
     return (
-        <div className="status-filters">
-            <ul>{renderedFilters}</ul>
+        <div className='status-filters'>
+            <h4>Filter By Status</h4>
+            {renderedFilters}
         </div>
     )
 }
