@@ -2,35 +2,65 @@ import { createSelector } from '@reduxjs/toolkit'
 import { StatusFilters } from "./filter";
 import axios from 'axios'
 
-const initialState = []
+const initialState = {
+    isLoading: false,
+    entities: []
+}
 
 
 export default function todosReducer(state = initialState, action) {
     switch (action.type) {
         case 'todos/todosAdded': {
-            return [...state, action.payload]
+            return {
+                ...state,
+                isLoading: false,
+                entities: [...state.entities, action.payload]
+            }
         }
         case 'todos/todosToggled': {
-            return state.map(todo => {
-                if (todo.id === action.payload) {
-                    return { ...todo, completed: !todo.completed }
-                }
-                return todo
-            })
+            return {
+                ...state,
+                entities: state.entities.map(
+                    (todo) => {
+                        if (todo.id === action.payload) {
+                            return { ...todo, completed: !todo.completed }
+                        }
+                        return todo
+                    }
+                )
+            }
         }
         case 'todos/todosUpdated': {
-            return state.map(todo => {
-                if (todo.id === action.payload.id) {
-                    return { ...action.payload }
-                }
-                return todo
-            })
+            return {
+                ...state,
+                isLoading: false,
+                entities: state.entities.map(todo => {
+                    if (todo.id === action.payload.id) {
+                        return { ...action.payload }
+                    }
+                    return todo
+                })
+            }
         }
         case 'todos/todosDeleted': {
-            return state.filter(todo => todo.id !== action.payload)
+            return {
+                ...state,
+                isLoading: false,
+                entities: state.entities.filter(todo => todo.id !== action.payload)
+            }
+        }
+        case 'todos/todosLoading': {
+            return {
+                ...state,
+                isLoading: true
+            }
         }
         case 'todos/todosLoaded': {
-            return action.payload
+            return {
+                ...state,
+                isLoading: false,
+                entities: [...action.payload]
+            }
         }
         default:
             return state
@@ -50,43 +80,57 @@ export const todosUpdated = payload => {
 export const todosDeleted = payload => {
     return { type: 'todos/todosDeleted', payload }
 }
+export const todosLoading = () => {
+    return { type: 'todos/todosLoading', }
+}
 export const todosLoaded = payload => {
     return { type: 'todos/todosLoaded', payload }
 }
 
+const API_ROOT = 'http://localhost:9000/todos'
+
+const instance = axios.create({
+    baseURL: API_ROOT,
+})
+
+
 export const fetchTodos = () => async (dispatch) => {
-    const response = await axios.get('http://localhost:9000/todos')
+    dispatch(todosLoading())
+    const response = await instance.get('/')
     dispatch(todosLoaded(response.data))
 }
 
 export const saveNewTodos = (text) => async (dispatch) => {
+    dispatch(todosLoading())
     const initalTodo = { name: text, completed: false }
-    const response = await axios.post('http://localhost:9000/todos', initalTodo)
+    const response = await instance.post('/', initalTodo)
 
     dispatch(todosAdded(response.data))
 }
 
 export const updateTodo = ({ id, text }) => async (dispatch) => {
+    dispatch(todosLoading())
     const initalTodo = { name: text }
-    const response = await axios.put(`http://localhost:9000/todos/${id}`, initalTodo)
+    const response = await instance.put(`/${id}`, initalTodo)
     dispatch(todosUpdated(response.data))
 }
 
 export const deleteTodo = id => async (dispatch) => {
-    await axios.delete(`http://localhost:9000/todos/${id}`)
+    dispatch(todosLoading())
+    await instance.delete(`/${id}`)
     dispatch(todosDeleted(id))
 }
 export const selectedTodoById = (state, todoId) => {
-    return state.todos.find(todo => todo.id === todoId)
+    return state.todos.entities.find(todo => todo.id === todoId)
 }
 
 export const selectedTodoIds = createSelector(
-    state => state.todos,
+    state => state.todos.entities,
     todos => todos.map(todo => todo.id)
 )
 
 export const selectedFilterTodo = createSelector(
-    state => state.todos,
+    state => state.todos.entities,
     state => state.filters.status,
     state => state.filters.name,
 

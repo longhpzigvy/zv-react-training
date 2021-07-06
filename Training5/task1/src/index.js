@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import  store  from './redux/store';
+import store from './redux/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import {fetchTodos} from './redux/reducers/todo'
+import { fetchTodos } from './redux/reducers/todo'
 
 store.dispatch(fetchTodos())
+console.log('store.getState() :>> ', store.getState().todos);
 
 ReactDOM.render(
   <React.StrictMode>
