@@ -6,11 +6,13 @@ export default function PageLogin() {
     const user = useSelector((state) => {
         return state.userToken;
     });
+
     useEffect(() => {
         if (user !== null) {
             window.location.replace("/");
         }
     }, [user]);
+
     return (
         <div className="text-center mt-4">
             <div className="form-signin">

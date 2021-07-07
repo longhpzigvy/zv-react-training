@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/action/UserAction";
 export default function FormLogin() {
     const dispatch = useDispatch();
+
     const submitHandler = (e) => {
         e.preventDefault();
         const values = {
@@ -11,6 +12,7 @@ export default function FormLogin() {
         };
         dispatch(loginUser(values));
     };
+
     return (
         <form onSubmit={submitHandler}>
             <div className="form-floating">

@@ -7,17 +7,22 @@ import { getAllUsersInfo } from "../../redux/action/UserAction";
 
 export default function Users() {
     const dispatch = useDispatch();
+
     const [user] = useSelector((state) => {
         return [state.userToken];
     });
+
     useEffect(() => {
         dispatch(getAllUsersInfo(user.token));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     const usersList = useSelector((state) => {
         return state.usersList;
     });
+
     let { path, url } = useRouteMatch();
+
     const renderList = () => {
         return usersList?.map((item) => {
             return (

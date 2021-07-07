@@ -11,6 +11,7 @@ export default function Home() {
     const user = useSelector((state) => {
         return state.userToken;
     });
+
     useEffect(() => {
         if (user === null) {
             window.location.replace("/login");

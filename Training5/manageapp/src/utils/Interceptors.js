@@ -31,11 +31,11 @@ const login = (action) => {
     });
 };
 
-const fetchUsers = (action) => {
+const getUsers = (action) => {
     return instance.get("/api/users");
 };
 
-const fetchUser = (action) => {
+const getUser = (action) => {
     return instance.get("/api/users/my");
 };
-export { login, fetchUsers, fetchUser };
+export { login, getUsers, getUser };

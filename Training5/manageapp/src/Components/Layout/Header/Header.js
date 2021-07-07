@@ -5,6 +5,7 @@ export default function Header() {
     const [user, userInfo] = useSelector((state) => {
         return [state.userToken, state.userProfile];
     });
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">

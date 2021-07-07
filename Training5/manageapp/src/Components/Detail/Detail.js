@@ -3,13 +3,15 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import Info from "../Info/Info";
 
-export default function Detail(props) {
+export default function Detail() {
     const [info, setInfo] = useState(null);
 
     const usersList = useSelector((state) => {
         return state.usersList;
     });
+
     let { id } = useParams();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         setInfo(
@@ -18,6 +20,7 @@ export default function Detail(props) {
             })
         );
     });
+
     return (
         <div className="container">
             <Info profile={info} />
