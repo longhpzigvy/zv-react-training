@@ -15,12 +15,12 @@ export default function reducer(state = initialState, action) {
         case ACTION_NAMES.GET_ACCOUNT_INFO_SUCCESS:
             return {
                 ...state,
-                myProfile: action.data,
+                userProfile: action.data,
             };
         case ACTION_NAMES.GET_ACCOUNT_INFO_ERROR:
             return {
                 ...state,
-                myProfile: {},
+                userProfile: {},
             };
         case ACTION_NAMES.LOGIN_USER_SUCCESS:
             return {

@@ -13,7 +13,7 @@ export default function Profile() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     const profile = useSelector((state) => {
-        return state.myProfile;
+        return state.userProfile;
     });
     return (
         <div className="container">

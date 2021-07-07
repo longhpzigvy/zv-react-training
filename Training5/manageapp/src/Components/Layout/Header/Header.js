@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 export default function Header() {
     const [user, userInfo] = useSelector((state) => {
-        return [state.userToken, state.myProfile];
+        return [state.userToken, state.userProfile];
     });
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
