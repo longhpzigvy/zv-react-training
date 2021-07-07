@@ -1,16 +1,12 @@
 import { put, call, takeEvery } from "redux-saga/effects";
-import axios from "axios";
 import { ACTION_NAMES } from "../action/ActionNames";
-import { BASE_URL } from "../../utils/Config";
+import { login, fetchUsers, fetchUser } from "../../utils/Interceptors";
 function* LoginUser(action) {
     try {
-        const result = yield call(axios.post, `${BASE_URL}login`, {
-            email: action.data.email,
-            password: action.data.password,
-        });
+        const result = yield call(login, action);
         const data = result.data;
         if (data.error !== "Incorrect password or email") {
-            yield put({ type: "SAGA_LOGIN_USER", data: data });
+            yield put({ type: ACTION_NAMES.LOGIN_USER_SUCCESS, data: data });
             window.location.replace("/home");
         }
     } catch (err) {
@@ -22,13 +18,9 @@ export function* LoginUserWatch() {
 }
 function* getAllUsersInfo(action) {
     try {
-        const result = yield call(axios.get, `${BASE_URL}api/users`, {
-            headers: {
-                Authorization: `Bearer ${action.data}`,
-            },
-        });
+        const result = yield call(fetchUsers, action);
         const data = result.data.users;
-        yield put({ type: "SAGA_GET_ALL_USERS_INFO", data });
+        yield put({ type: ACTION_NAMES.GET_ALL_USERS_INFO_SUCCESS, data });
     } catch (err) {
         console.error(err);
     }
@@ -39,13 +31,9 @@ export function* getAllUsersInfoWatch() {
 }
 function* GetAccountInfo(action) {
     try {
-        const result = yield call(axios.get, `${BASE_URL}api/users/my`, {
-            headers: {
-                Authorization: `Bearer ${action.data}`,
-            },
-        });
+        const result = yield call(fetchUser, action);
         const data = result.data;
-        yield put({ type: "SAGA_GET_ACCOUNT_INFO", data });
+        yield put({ type: ACTION_NAMES.GET_ACCOUNT_INFO_SUCCESS, data });
     } catch (err) {
         console.error(err);
     }

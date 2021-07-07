@@ -1,18 +1,18 @@
 import { initialState } from "../state/state";
-
+import { ACTION_NAMES } from "../action/ActionNames";
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        case "SAGA_GET_ALL_USERS_INFO":
+        case ACTION_NAMES.GET_ALL_USERS_INFO_SUCCESS:
             return {
                 ...state,
                 usersList: action.data,
             };
-        case "SAGA_GET_ACCOUNT_INFO":
+        case ACTION_NAMES.GET_ACCOUNT_INFO_SUCCESS:
             return {
                 ...state,
                 myProfile: action.data,
             };
-        case "SAGA_LOGIN_USER":
+        case ACTION_NAMES.LOGIN_USER_SUCCESS:
             return {
                 ...state,
                 userToken: action.data,

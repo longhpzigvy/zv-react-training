@@ -7,6 +7,7 @@ import reducer from "../reducer/userReducer";
 const persistConfig = {
     key: "root",
     storage,
+    whitelist: ["userToken"],
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

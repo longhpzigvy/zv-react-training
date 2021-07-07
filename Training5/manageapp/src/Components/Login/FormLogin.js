@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { LoginUser } from "../../redux/action/UserAction";
+import { loginUser } from "../../redux/action/UserAction";
 export default function FormLogin() {
     const dispatch = useDispatch();
     const submitHandler = (e) => {
@@ -9,7 +9,7 @@ export default function FormLogin() {
             email: e.target.email.value,
             password: e.target.password.value,
         };
-        dispatch(LoginUser(values));
+        dispatch(loginUser(values));
     };
     return (
         <form onSubmit={submitHandler}>

@@ -2,7 +2,7 @@ import React from "react";
 export default function Info(props) {
     const { profile } = props;
     return (
-        <div classNameName="card">
+        <div className="card">
             <div className="card-header">
                 FullName: {profile ? profile.fullName : ""}
             </div>

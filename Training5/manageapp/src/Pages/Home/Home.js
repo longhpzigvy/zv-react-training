@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Header from "../../Components/Layout/Header/Header";
 import Footer from "../../Components/Layout/Footer/Footer";
 import Sidebar from "../../Components/Sidebar/Sidebar";
@@ -39,12 +39,13 @@ export default function Home() {
                     <Route exact path="/home">
                         <DashBoard />
                     </Route>
-                    <Route path="/home/profile">
+                    <Route exact path="/home/profile">
                         <Profile />
                     </Route>
                     <Route path="/home/users">
                         <Users />
                     </Route>
+                    <Redirect from="/" to="/home" />
                 </Switch>
             </div>
             <Footer />
