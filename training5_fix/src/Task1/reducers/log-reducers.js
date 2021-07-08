@@ -12,6 +12,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case types.GET_LOGS: {
+      console.log('logs', action.payload) 
       return {
         ...state,
         logs: action.payload,
@@ -65,7 +66,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         // logs: action.payload
-        logs: state.logs.filter((log) => log.message.includes(action.payload)),
+        logs: state.logs.filter((log) => log.name.includes(action.payload)),
         // loading: false
       };
     }

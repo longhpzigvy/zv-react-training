@@ -23,7 +23,6 @@ const Logs = ({getLogs, logRecuders: {loading, logs, page, totalItems}}) => {
     return (
         <div>
             <ul className="collection with-header">
-               
                 {!loading && logs.length === 0 ? (
                     <p className="center">No logs to show...</p>
                 ) : (

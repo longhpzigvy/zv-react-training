@@ -42,6 +42,7 @@ export const addLogs = log => {
             // thực hiện phương thức post
             const res = await axios.post(api + "todos", log);
             const data = await res.data;
+            console.log('data add log', data)
             dispatch({
                 type: types.ADD_LOG,
                 payload: data

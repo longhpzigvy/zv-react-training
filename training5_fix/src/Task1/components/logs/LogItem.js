@@ -6,6 +6,7 @@ import { deleteLogs, setCurrentLog } from "../../api/toDoApi";
 const LogItem = ({ log, deleteLogs, setCurrentLog }) => {
 
   //log là 1 object đc truyền từ Logs.js
+  
 
   const onDeleteLog = (id) => {
     deleteLogs(id);
@@ -17,13 +18,13 @@ const LogItem = ({ log, deleteLogs, setCurrentLog }) => {
         <a
           href="#edit-log-modal"
           className={`modal-trigger ${
-            log.attention ? "red-text" : "blue-text"
+            log.completed ? "red-text" : "blue-text"
           }`}
           // truyền vào log là data get về (dữ liệu cũ) để bên components EditLogModal xử lí
           // khi nào đúng id thì hiện dữ liệu của data đó
           onClick={() => setCurrentLog(log.id)}
         >
-          {log.message}
+          {log.name}
         </a>
         <br />
         <span className="grey-text">

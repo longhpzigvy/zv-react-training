@@ -4,24 +4,25 @@ import { connect } from "react-redux";
 import { addLogs } from "../../api/toDoApi";
 
 const AddLogModal = ({ addLogs }) => {
-  const [message, setMessage] = useState("");
-  const [attention, setAttention] = useState(false);
+  const [name, setName] = useState("");
+  const [completed, setCompleted] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (message === "") {
-      //khong add
+    if (name === "") {
+      //nguoi dung chua nhap => khong add
     } else {
-      console.log(message, attention);
+      console.log(name, completed);
+      //newLog la 1 obj luu du lieu tu nguoi dung nhap vao
       const newLog = {
-        message,
-        attention,
+        name,
+        completed,
       };
       // đẩy dữ liệu lên server thông qua props đã được dispatch
       addLogs(newLog);
-      // clear filde
-      setMessage("");
-      setAttention(false);
+      // clear 
+      setName("");
+      setCompleted(false);
     }
   };
   return (
@@ -31,9 +32,9 @@ const AddLogModal = ({ addLogs }) => {
         <div className="row">
           <input
             type="text"
-            name="message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)} 
           />
           <label htmlFor="message" className="active">
             Log Message
@@ -47,9 +48,9 @@ const AddLogModal = ({ addLogs }) => {
                 <input
                   type="checkbox"
                   className="filled-in"
-                  checked={attention}
-                  value={attention}
-                  onChange={(e) => setAttention(!attention)}
+                  checked={completed}
+                  value={completed}
+                  onChange={(e) => setCompleted(!completed)}
                 />
                 <span>Not Completed</span>
               </label>

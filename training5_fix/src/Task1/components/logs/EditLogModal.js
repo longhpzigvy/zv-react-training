@@ -4,32 +4,33 @@ import { updateLogs } from "../../api/toDoApi";
 import { connect } from "react-redux";
 
 const EditLogModal = ({ current, updateLogs }) => {
-  const [message, setMessage] = useState("");
-  const [attention, setAttention] = useState(false);
+  const [name, setName] = useState("");
+  const [completed, setCompleted] = useState(false);
 
   console.log("urrent", current);
 
   useEffect(() => {
     // nếu đúng là log khi click vào sửa thì sẽ hiện lên data cũ
     if (current) {
-      setMessage(current.message);
-      setAttention(current.attention);
+      setName(current.name);
+      setCompleted(current.completed);
     }
   }, [current]);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (message === "") {
+    if (name === "") {
+      
     } else {
       const updateLog = {
         id: current.id,
-        message,
-        attention,
+        name,
+        completed,
       };
       updateLogs(updateLog);
       // clear filde
-      setMessage("");
-      setAttention(false);
+      setName("");
+      setCompleted(false);
     }
   };
   return (
@@ -38,9 +39,9 @@ const EditLogModal = ({ current, updateLogs }) => {
         <div className="row">
           <input
             type="text"
-            name="message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <label htmlFor="message" className="active">
             Log Message
@@ -54,9 +55,9 @@ const EditLogModal = ({ current, updateLogs }) => {
                 <input
                   type="checkbox"
                   className="filled-in"
-                  checked={attention}
-                  value={attention}
-                  onChange={(e) => setAttention(!attention)}
+                  checked={completed}
+                  value={completed}
+                  onChange={(e) => setCompleted(!completed)}
                 />
                 <span>Completed</span>
               </label>
