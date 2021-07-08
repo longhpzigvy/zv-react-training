@@ -2,16 +2,17 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import FormLogin from "../../Components/Login/FormLogin";
 import "./PageLogin.css";
-export default function PageLogin() {
+import { withRouter } from "react-router-dom";
+const PageLogin = (props) => {
     const user = useSelector((state) => {
         return state.userToken;
     });
 
     useEffect(() => {
         if (user !== null) {
-            window.location.replace("/");
+            props.history.push("/");
         }
-    }, [user]);
+    }, [user, props.history]);
 
     return (
         <div className="text-center mt-4">
@@ -20,4 +21,5 @@ export default function PageLogin() {
             </div>
         </div>
     );
-}
+};
+export default withRouter(PageLogin);

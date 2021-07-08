@@ -1,23 +1,21 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import Header from "../../Components/Layout/Header/Header";
 import Footer from "../../Components/Layout/Footer/Footer";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import DashBoard from "../../Components/DashBoard/DashBoard";
 import Profile from "../../Components/Profile/Profile";
 import Users from "../../Components/Users/Users";
-export default function Home() {
+const Home = (props) => {
     const user = useSelector((state) => {
         return state.userToken;
     });
-
     useEffect(() => {
         if (user === null) {
-            window.location.replace("/login");
+            props.history.push("/login");
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user, props.history]);
 
     return (
         <div
@@ -46,10 +44,11 @@ export default function Home() {
                     <Route path="/home/users">
                         <Users />
                     </Route>
-                    <Redirect from="/" to="/home" />
+                    <Redirect to="/home" />
                 </Switch>
             </div>
             <Footer />
         </div>
     );
-}
+};
+export default withRouter(Home);

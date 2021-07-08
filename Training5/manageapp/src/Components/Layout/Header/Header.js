@@ -1,18 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
-export default function Header() {
-    const [user, userInfo] = useSelector((state) => {
-        return [state.userToken, state.userProfile];
+import { Link, NavLink, withRouter } from "react-router-dom";
+const Header = (props) => {
+    const user = useSelector((state) => {
+        return state.userToken;
     });
-
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
                 <NavLink className="navbar-brand" to="/home">
                     Zigvy
                 </NavLink>
-                {user !== "" && (
+                {user !== null && (
                     <ul className="navbar-nav ">
                         <li className="nav-item dropdown">
                             <Link
@@ -23,7 +22,7 @@ export default function Header() {
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
                             >
-                                {userInfo.fullName}
+                                {user.user.fullName}
                             </Link>
                             <ul
                                 className="dropdown-menu"
@@ -32,7 +31,7 @@ export default function Header() {
                                 <li
                                     onClick={() => {
                                         window.localStorage.clear();
-                                        window.location.replace("/login");
+                                        props.history.push("/login");
                                     }}
                                 >
                                     <Link className="dropdown-item" to="#">
@@ -46,4 +45,5 @@ export default function Header() {
             </div>
         </nav>
     );
-}
+};
+export default withRouter(Header);

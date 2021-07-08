@@ -11,7 +11,6 @@ function* LoginUser(action) {
         }
     } catch (err) {
         yield put({ type: ACTION_NAMES.LOGIN_USER_ERROR });
-        console.error(err);
     }
 }
 
@@ -21,12 +20,11 @@ export function* LoginUserWatch() {
 
 function* getAllUsersInfo(action) {
     try {
-        const result = yield call(getUsers, action);
+        const result = yield call(getUsers);
         const data = result.data.users;
         yield put({ type: ACTION_NAMES.GET_ALL_USERS_INFO_SUCCESS, data });
     } catch (err) {
-        yield put({ type: ACTION_NAMES.GET_ALL_USERS_INFO_ERROR });
-        console.error(err);
+        yield put({ type: ACTION_NAMES.GET_ALL_USERS_INFO_ERROR, err });
     }
 }
 
@@ -36,12 +34,11 @@ export function* getAllUsersInfoWatch() {
 
 function* GetAccountInfo(action) {
     try {
-        const result = yield call(getUser, action);
+        const result = yield call(getUser);
         const data = result.data;
         yield put({ type: ACTION_NAMES.GET_ACCOUNT_INFO_SUCCESS, data });
     } catch (err) {
         yield put({ type: ACTION_NAMES.GET_ACCOUNT_INFO_ERROR });
-        console.error(err);
     }
 }
 

@@ -1,12 +1,22 @@
 import "./App.css";
 import { createBrowserHistory } from "history";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import {
+    Switch,
+    Route,
+    BrowserRouter as Router,
+    Redirect,
+} from "react-router-dom";
+import { useSelector } from "react-redux";
 import PageLogin from "./Pages/Login/PageLogin";
 import Home from "./Pages/Home/Home";
 
 export const history = createBrowserHistory();
 
 function App() {
+    const user = useSelector((state) => {
+        return state.userToken;
+    });
+
     return (
         <Router history={history}>
             <Switch>
@@ -16,6 +26,7 @@ function App() {
                 <Route path="/">
                     <Home />
                 </Route>
+                <Redirect to={user ? "/home" : "/login"} />
             </Switch>
         </Router>
     );

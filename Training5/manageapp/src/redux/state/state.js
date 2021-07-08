@@ -1,5 +1,7 @@
 export const initialState = {
     userToken: null,
     usersList: [],
-    userProfile: {},
+    error: null,
+    isLoading: false,
+    isAuthenticate: false,
 };

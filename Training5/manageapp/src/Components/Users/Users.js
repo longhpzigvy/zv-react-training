@@ -8,12 +8,8 @@ import { getAllUsersInfo } from "../../redux/action/UserAction";
 export default function Users() {
     const dispatch = useDispatch();
 
-    const [user] = useSelector((state) => {
-        return [state.userToken];
-    });
-
     useEffect(() => {
-        dispatch(getAllUsersInfo(user.token));
+        dispatch(getAllUsersInfo());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -29,7 +25,7 @@ export default function Users() {
                 <button
                     type="button"
                     className="btn btn-dark mt-4"
-                    key={Math.random() * 10}
+                    key={item.id}
                 >
                     <Link exact to={`${url}/${item.id}`}>
                         {item.fullName}

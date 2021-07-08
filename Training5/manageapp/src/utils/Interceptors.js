@@ -1,11 +1,11 @@
 import axios from "axios";
 import { store } from "../redux/store";
 import { BASE_URL } from "./Config";
+import { history } from "../App";
 const instance = axios.create({
     baseURL: BASE_URL,
     timeout: 1000,
 });
-
 instance.interceptors.request.use(function (config) {
     const token = store.getState().userToken;
     if (token)
@@ -20,7 +20,11 @@ instance.interceptors.response.use(
         return response;
     },
     function (error) {
-        return error;
+        if (error.response.status === 401) {
+            history.push("/home");
+            alert("You are not admin");
+        }
+        return Promise.reject(error);
     }
 );
 
@@ -31,11 +35,11 @@ const login = (action) => {
     });
 };
 
-const getUsers = (action) => {
+const getUsers = () => {
     return instance.get("/api/users");
 };
 
-const getUser = (action) => {
+const getUser = () => {
     return instance.get("/api/users/my");
 };
 export { login, getUsers, getUser };
