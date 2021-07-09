@@ -29,6 +29,7 @@ export default function taskReducer(state = initialState, action) {
             ]
         }
         case type.UPDATE_TASK: {
+            console.log('update task action.payload :>> ', action.payload);
             return state.map(task => {
                 if (task.id === action.payload.id) {
                     return { ...action.payload, status: DRAFT }

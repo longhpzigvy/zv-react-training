@@ -32,7 +32,7 @@ const TaskPage = ({ id }) => {
     const onKeyDown = (e) => {
         const textTrim = e.target.value.trim()
         if (e.key === 'Enter' && textTrim) {
-            dispatch(updateTask({ id, taskName: value }))
+            dispatch(updateTask({ id: id, taskName: value }))
         }
     }
 

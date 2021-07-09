@@ -1,11 +1,11 @@
 import * as type from '../actionTypes/tasks'
 
-export const addTask = payload => {
-    return { type: type.ADD_TASK, payload }
+export const addTask = name => {
+    return { type: type.ADD_TASK, payload: name }
 }
 
-export const updateTask = payload => {
-    return { type: type.UPDATE_TASK, payload }
+export const updateTask = ({ id, taskName }) => {
+    return { type: type.UPDATE_TASK, payload: { id, taskName } }
 }
 
 export const changeTaskStatus = ({ id, status }) => {
