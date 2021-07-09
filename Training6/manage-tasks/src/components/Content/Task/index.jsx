@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Card, Button, Input } from 'antd'
-import { ERROR, DRAFT } from '../../../contant/taskStatus'
-import { updateTask, changeTaskStatusReady, changeTaskStatusSubmitting } from '../../../redux/action Creators/task';
+import { ERROR, DRAFT, READY, SUBMITTING } from '../../../contant/taskStatus'
+import { updateTask, changeTaskStatus } from '../../../redux/action Creators/task';
 import './index.css';
 
 const selectedTasks = (state, taskId) => state.tasks.find(task => task.id === taskId)
@@ -11,11 +11,19 @@ const selectedTasks = (state, taskId) => state.tasks.find(task => task.id === ta
 const TaskPage = ({ id }) => {
     const taskId = useSelector(state => selectedTasks(state, id))
     const network = useSelector(state => state.network.status)
+    const readyTasks = useSelector(state => state.tasks.filter(task => task.status === READY))
     const dispatch = useDispatch()
 
 
     const { taskName, status } = taskId
     const [value, setValue] = useState(taskName)
+
+    if (network) {
+        for (let i = 0; i < readyTasks.length; i++) {
+            dispatch(changeTaskStatus({ id: readyTasks[i].id, status: SUBMITTING }))
+
+        }
+    }
 
     const onChange = (e) => {
         setValue(e.target.value)
@@ -28,13 +36,15 @@ const TaskPage = ({ id }) => {
         }
     }
 
+
+
     const onClick = () => {
         if (status === DRAFT) {
-            dispatch(changeTaskStatusReady(id))
+            dispatch(changeTaskStatus({ id: id, status: READY }))
         }
 
         if (status === ERROR && network) {
-            dispatch(changeTaskStatusSubmitting(id))
+            dispatch(changeTaskStatus({ id: id, status: SUBMITTING }))
         }
     }
 

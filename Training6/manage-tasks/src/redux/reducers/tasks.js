@@ -2,7 +2,14 @@ import * as type from '../actionTypes/tasks';
 import { DRAFT, READY, SUBMITTING, SUCCESS, ERROR } from '../../contant/taskStatus'
 
 
-const initialState = []
+const initialState = [
+    { id: 1, taskName: 'Backup DB', status: READY },
+    { id: 2, taskName: 'Run SQL', status: DRAFT },
+    { id: 3, taskName: 'Drop DB', status: DRAFT },
+    { id: 4, taskName: 'Drop DB', status: ERROR },
+    { id: 5, taskName: 'Drop DB', status: SUCCESS },
+
+]
 
 
 const newTaskId = (state) => {
@@ -29,36 +36,15 @@ export default function taskReducer(state = initialState, action) {
                 return task
             })
         }
-        case type.CHANGE_TASK_STATUS_READY: {
+        case type.CHANGE_TASK_STATUS: {
+            console.log('action.payload :>> ', action.payload);
             return state.map(task => {
-                if (task.id === action.payload) {
-                    return { ...task, status: READY }
+                if (task.id === action.payload.id) {
+                    return {
+                        ...task, status: action.payload.status
+                    }
                 }
-                return task;
-            })
-        }
-        case type.CHANGE_TASK_STATUS_SUBMITTING: {
-            return state.map(task => {
-                if (task.id === action.payload) {
-                    return { ...task, status: SUBMITTING }
-                }
-                return task;
-            })
-        }
-        case type.CHANGE_TASK_STATUS_SUCCESS: {
-            return state.map(task => {
-                if (task.id === action.payload) {
-                    return { ...task, status: SUCCESS }
-                }
-                return task;
-            })
-        }
-        case type.CHANGE_TASK_STATUS_ERROR: {
-            return state.map(task => {
-                if (task.id === action.payload) {
-                    return { ...task, status: ERROR }
-                }
-                return task;
+                return task
             })
         }
 
