@@ -9,25 +9,12 @@ export default (preState = {}, action) => {
             }
         }
         case actionTypes.GET_USERS_SUCCESS: {
+            console.log('action.payload :>> ', action.payload);
             return {
                 ...preState,
                 isFetching: false,
                 users: action.payload.users ? action.payload.users : null,
-                error: action.payload.error ? action.payload.error : null
-            }
-        }
-        case actionTypes.GET_USER: {
-            return {
-                ...preState,
-                isFetching: true
-            }
-        }
-        case actionTypes.GET_USER_SUCCESS: {
-            return {
-                ...preState,
-                isFetching: false,
-                user: action.payload ? action.payload : null,
-                error: action.payload.error ? action.payload.error : null
+                // error: action.payload.error ? action.payload.error : null
             }
         }
         default:

@@ -1,8 +1,10 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import {
     getUsersSuccess,
-    getUserSuccess,
 } from '../actionCreators/users'
+import {
+    getUserSuccess,
+} from '../actionCreators/user'
 import { GET_USER, GET_USERS } from '../actionTypes/users'
 import { fetchUsers, fetchUser } from '../apiService/api'
 const delay = (ms) => new Promise(res => setTimeout(res, ms))

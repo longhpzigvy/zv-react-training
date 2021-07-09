@@ -20,19 +20,18 @@ const UserPage = ({ children }) => {
         dispatch(getUsers())
     }, [])
     const users = useSelector(selectUsers)
-    // const { users, isFetching } = usersState
+   
     const error = useSelector(state => state.users.error)
     const isFetching = useSelector(state => state.users.isFetching)
 
 
+    // if (error) {
+    //     notification.open({
+    //         message: 'Permission fail',
+    //         description: error,
+    //     });
+    // }
     useEffect(() => {
-        if (error) {
-            notification.open({
-                message: 'Permission fail',
-                description: error,
-            });
-            history.push('/app')
-        }
         if (users) {
             const newUser = users.filter(user => user.role !== 'Admin')
             setOther([...newUser])

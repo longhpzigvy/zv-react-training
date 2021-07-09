@@ -1,14 +1,14 @@
 import React from 'react'
 
-const DetailPage = ({ id, fullName, email, password, role }) => {
+const DetailPage = ({ user }) => {
 
     return (
         <div className='detail-page'>
-            <p> Full name: {fullName}</p>
-            <p> Email: {email}</p>
-            <p> Password: {password}</p>
-            <p> Id: {id}</p>
-            <p> Role: {role}</p>
+            <p> Full name: {user.fullName}</p>
+            <p> Email: {user.email}</p>
+            <p> Password: {user.password}</p>
+            <p> Id: {user.id}</p>
+            <p> Role: {user.role}</p>
         </div>
     )
 }
