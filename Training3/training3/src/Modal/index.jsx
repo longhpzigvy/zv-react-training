@@ -8,6 +8,7 @@ class Modal extends Component {
     console.log("Component con da nhan duoc props tu component cha");
 
   }
+  
   render() {
     return (
       <div
@@ -16,6 +17,7 @@ class Modal extends Component {
         }
       >
         <section className="modal-main">
+          
           {this.props.children}
          
           <input id="idInput"/>

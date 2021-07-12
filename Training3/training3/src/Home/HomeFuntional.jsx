@@ -7,23 +7,31 @@ function HomeFuntional() {
   const [show, setShow] = useState(false);
   const [input, setInput] = useState([]);
 
-  const handleInputKeyLogger = (e) => {
+  const [test, setTest] = useState(true);
+  if (test) {
+    console.log("vietnam");
+  }
+
+  //you must use useCallback for thiss function, because it
+  // should be a function use for add/remove event listener, not create new whenever the HomeFunctional render
+  const handleInputKeyLogger = useCallback((e) => {
+    console.log("test");
     setInput((input) => [
       ...input,
       keyBoard[e.keyCode] ? keyBoard[e.keyCode] : e.key,
     ]);
-  };
+  }, []);
 
   useEffect(() => {
     if (show) {
       document.addEventListener("keydown", handleInputKeyLogger);
-    }
-
-    return () => {
-      if (show) {
+      return () => {
+        //componentWillUnmount
         document.removeEventListener("keydown", handleInputKeyLogger);
-      }
-    };
+      };
+    }
+    //please move the return () => {}
+    //inside the if (show), we don't want to return a function if show = false and check condition (duplicate)
   }, [show]);
 
   const showModal = () => {
