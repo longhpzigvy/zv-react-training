@@ -1,0 +1,13 @@
+.country-section {
+  margin-top: 50px;
+}
+
+.country-section .countries {
+  margin-top: 25px;
+}
+.country-section .country {
+  border: 1px solid grey;
+  border-radius: 6px;
+  padding: 8px;
+  margin-bottom: 15px;
+}
