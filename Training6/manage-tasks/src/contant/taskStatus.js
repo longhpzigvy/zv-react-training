@@ -1,0 +1,5 @@
+export const DRAFT = 'Draft'
+export const READY = 'Ready'
+export const SUBMITTING = 'Submitting'
+export const SUCCESS = 'Success'
+export const ERROR = 'Error'
