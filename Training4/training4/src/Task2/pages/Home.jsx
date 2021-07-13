@@ -52,17 +52,11 @@ function Home() {
   ,[]);
 
   //vẫn dùng dataSearch cho vào input as value
-
   // tách ra 2 hàm
-
   // 1 hàm handler xử lý update dataSearch ngay lập tức
-
   // 1 hàm hanlder gọi API với tham số dataSearch
-
   // hàm số 2 là hàm được debounce
-
   // rồi onchange kích hoạt hàm 1
-
   // hàm 1 kích hoạt hàm 2
 
   return (
