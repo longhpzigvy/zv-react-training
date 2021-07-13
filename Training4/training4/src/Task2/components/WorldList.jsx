@@ -10,8 +10,6 @@ WorldList.defaultProps = {
 };
 
 function WorldList({ data }) {
-
-
   return (
     <>
       <td>{data.name}</td>
