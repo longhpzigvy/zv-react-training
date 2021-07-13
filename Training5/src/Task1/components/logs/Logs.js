@@ -4,13 +4,14 @@ import Preloader from "../layout/Preloader";
 import {connect} from "react-redux";
 import {getLogs} from "../../api/toDoApi";
 import Pagination from "react-js-pagination";
+import { notification } from "antd";
 
-const Logs = ({getLogs, logRecuders: {loading, logs, page, totalItems}}) => {
+const Logs = ({getLogs, logRecuders: {error, loading, logs}}) => {
  
 
     useEffect(() => {
         // gọi function getlogs qua bằng lifecycle của hooks
-        getLogs(1);
+        getLogs();
         //eslint-disable-next-line
     }, []);
    
@@ -18,6 +19,12 @@ const Logs = ({getLogs, logRecuders: {loading, logs, page, totalItems}}) => {
     // kiểm tra nếu chưa load dc data sẽ hiện loading
     if (loading || logs === null) {
         return <Preloader/>;
+    }
+    if(error) {
+        console.log('rrerer', error)
+        notification.open({
+            message: error,
+        })
     }
     // còn đã có data thì trả về list logs
     return (
@@ -34,9 +41,9 @@ const Logs = ({getLogs, logRecuders: {loading, logs, page, totalItems}}) => {
                     prevPageText={"<"}
                     nextPageText={">"}
                     hideFirstLastPages
-                    activePage={page}
+                    // activePage={page}
                     // itemsCountPerPage={this.props.data.numItemsPerPage}
-                    totalItemsCount={+totalItems}
+                    // totalItemsCount={+totalItems}
                     onChange={getLogs}
                 />
         </div>

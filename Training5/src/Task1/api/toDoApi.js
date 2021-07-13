@@ -6,23 +6,15 @@ const api = "http://localhost:9000/";
 
 
 // fetch data logs to api server
-export const getLogs = (page) => {
+export const getLogs = () => {
     return async dispatch => {
-        const limit = 10;
         try {
             setLoading();
-            // eslint-disable-next-line no-useless-concat
-            const res = await fetch(api + "todos" + `?_page=${page}&_limit=${limit}`);
-            // eslint-disable-next-line no-useless-concat
-            console.log(api + "todos" + `?_page=${page}&_limit=${limit}`);
-            const totalItems = await res.headers.get("X-Total-Count");
-            console.log(totalItems)
+            const res = await fetch(api + "todos");
             const data = await res.json();
             dispatch({
                 type: types.GET_LOGS,
                 payload: data,
-                page,
-                totalItems
             });
         } catch (err) {
             console.log(err);
@@ -136,14 +128,13 @@ export const searchLogs = text => {
     return async dispatch => {
         try {
             setLoading();
-            // console.log('text', text)
-            const res = await axios.get(api + `todos?q=${text}`);
+            const res = await axios.get(api + `todos/${text}`);
             const data = await res.data;
             
             dispatch({
                 type: types.SEARCH_LOGS,
-                // payload: data,
-                payload: text,
+                payload: data,
+                // payload: text,
             });
         } catch (err) {
             console.log(err);

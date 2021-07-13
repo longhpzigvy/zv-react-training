@@ -5,20 +5,15 @@ const initialState = {
   current: null,
   loading: false,
   error: null,
-  page: null,
-  totalItems: "",
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case types.GET_LOGS: {
-      console.log('logs', action.payload) 
       return {
         ...state,
         logs: action.payload,
         loading: false,
-        page: action.page,
-        totalItems: action.totalItems,
       };
     }
 
@@ -62,11 +57,10 @@ export default (state = initialState, action) => {
     }
     // search log
     case types.SEARCH_LOGS: {
-      // console.log("payload", state.logs.filter(x => x.m)); //payload là 1 chuỗi tìm kiếm
       return {
         ...state,
-        // logs: action.payload
-        logs: state.logs.filter((log) => log.name.includes(action.payload)),
+        logs: action.payload
+        // logs: state.logs.filter((log) => log.name.includes(action.payload)),
         // loading: false
       };
     }
@@ -78,10 +72,10 @@ export default (state = initialState, action) => {
     }
     case types.LOGS_ERROR: {
       console.log(action.payload);
-      console.log("payload", action.payload);
+      console.log("payload", action.payload.statusText);
       return {
         ...state,
-        error: action.payload,
+        error: action.payload.statusText,
       };
     }
     default:
