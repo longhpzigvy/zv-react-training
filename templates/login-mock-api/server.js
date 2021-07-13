@@ -30,7 +30,23 @@ const users = [{
   password: 'zigvy123',
   id: '781f9a70-ea6e-11e9-a9a5-4d422b2ea8f4',
   role: 'User',
-}]
+},
+{
+  fullName: 'John Smith1',
+  email: 'john11@smith.com',
+  password: 'zigvy123',
+  id: '1',
+  role: 'User',
+},
+{
+  fullName: 'John Smith2',
+  email: 'john12@smith.com',
+  password: 'zigvy123',
+  id: '2',
+  role: 'User',
+},
+
+]
 
 
 app.use(cors());
